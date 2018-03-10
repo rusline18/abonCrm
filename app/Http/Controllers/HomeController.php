@@ -2,6 +2,7 @@
 
 namespace Growth\Http\Controllers;
 
+use Growth\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
