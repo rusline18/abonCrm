@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name') }}</title>
+    <title>{{ $title }}</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -27,17 +27,13 @@
                             <span class="icon-bar"></span>
                         </button>
 
-                        {{--<!-- Branding Image -->--}}
-                        {{--<a class="navbar-brand" href="{{ url('/') }}">--}}
-                            {{--{{ config('app.name', 'Главная старница') }}--}}
-                        {{--</a>--}}
+                        <!-- Branding Image -->
+                        <a class="navbar-brand" href="@auth {{ url('/home') }} @else {{ url('/') }} @endauth">
+                            Growth
+                        </a>
                     </div>
 
                     <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                        <!-- Left Side Of Navbar -->
-                        <ul class="nav navbar-nav">
-                            Growth
-                        </ul>
 
                         <!-- Right Side Of Navbar -->
                         <ul class="nav navbar-nav navbar-right">
@@ -70,8 +66,28 @@
                     </div>
                 </div>
             </nav>
-
-        @yield('content')
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2">
+                    {{ Auth::user()->name }}
+                    <div class="panel">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li class="{{ Request::is('execute') ? 'active' : '' }}" ><a href="{{ route('execute') }}">Преподаватели</a></li>
+                            <li class="{{ Request::is('#') ? 'active' : '' }}" ><a href="#">Расписание</a></li>
+                            <li class="{{ Request::is('#') ? 'active' : '' }}" ><a href="#">Клиенты</a></li>
+                            <li class="{{ Request::is('#') ? 'active' : '' }}" ><a href="#">Финансовый учет</a></li>
+                            <li class="{{ Request::is('#') ? 'active' : '' }}" ><a href="#">Занятие</a></li>
+                            <li class="{{ Request::is('#') ? 'active' : '' }}" ><a href="#">Филиалы</a></li>
+                            <li class="{{ Request::is('#') ? 'active' : '' }}" ><a href="#">Направление</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-10">
+                    @yield('content')
+                </div>
+            </div>
+        </div>
+        {{--@yield('content')--}}
     </div>
 
     <!-- Scripts -->
