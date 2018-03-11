@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
-Route::resource('execute', 'ExecuteController');
-Route::resource('client', 'ClientController');
+Route::resource('execute', 'ExecuteController')->middleware('auth');
+Route::resource('client', 'ClientController')->middleware('auth');
