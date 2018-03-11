@@ -2,7 +2,9 @@
 
 namespace Growth\Http\Controllers;
 
+use Growth\Execute;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ExecuteController extends Controller
 {
@@ -17,7 +19,8 @@ class ExecuteController extends Controller
      */
     public function index()
     {
-        return view('execute.index', ['title' => 'Преподаватели']);
+        $executer = DB::table('execute')->get();
+        return view('execute.index', ['title' => 'Преподаватели', 'executer' => $executer]);
     }
 
     /**
@@ -27,18 +30,21 @@ class ExecuteController extends Controller
      */
     public function create()
     {
-        //
+        return view('execute.create', ['title' => 'Создание преподавателя']);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return Execute
      */
     public function store(Request $request)
     {
-        //
+        $add = new Execute();
+        $add->fill($request->all());
+        $add->save();
+        return $add;
     }
 
     /**
