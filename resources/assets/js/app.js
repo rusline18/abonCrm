@@ -7,6 +7,7 @@
 
 require('./bootstrap');
 require('./form');
+require('./panel');
 
 window.Vue = require('vue');
 
