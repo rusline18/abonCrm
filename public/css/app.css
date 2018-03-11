@@ -57,6 +57,12 @@
   margin-bottom: 13px;
 }
 
+.executer-index .panel .action {
+  float: right;
+  margin-top: 5px;
+  cursor: pointer;
+}
+
 .executer-index .panel:hover {
   -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.18);
           box-shadow: 0 0 10px rgba(0, 0, 0, 0.18);
