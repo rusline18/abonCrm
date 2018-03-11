@@ -1,12 +1,25 @@
-.button{
+@mixin button($color){
   background: none;
   color: black;
   font-weight: 300;
   border-radius: 5px;
-  border: 1px solid #5b5bf3;
-  padding: 5px;
+  border: 1px solid $color;
+  padding: 5px 14px;
+  outline: none;
   &:hover{
-    background: #5b5bf3;
+    background: $color;
     color: white;
   }
+}
+
+.button{
+  @include button(#5b5bf3)
+}
+
+.button-success{
+  @include  button(#3eb70d);
+}
+
+.button-error{
+  @include button(#f95858);
 }
