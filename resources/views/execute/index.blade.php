@@ -9,7 +9,7 @@
     <div class="row executer-index">
         @foreach($executer as $execute)
         <div class="col-lg-3 col-md-4 panel">
-            <div class="panel-default">
+            <div id='{{ $execute->id }}' class="panel-default executer-panel">
                 <div class="caption panel-body">
                     <p><strong>Фамилия имя:</strong> {{ $execute->last_name }} {{$execute->name}}</p>
                     <p><strong>Телефон:</strong> {{ $execute->phone }}</p>
@@ -25,7 +25,7 @@
 <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-labelledby="createExexute" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="POST" action="{{ route('login') }}" class="form-inline form-create-execute">
+            <form method="POST" class="form-inline form-create-execute">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="createLabel">Создание преподавателя</h4>
@@ -52,12 +52,21 @@
                             <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
                         </div>
                     </div>
+                <input type="hidden" value="{{ Auth::user()->id }}" name="id_user">
             </div>
             <div class="modal-footer">
                 <button type="button" class="button-error" data-dismiss="modal">Отменить</button>
                 <button type="submit" class="button-success">Создать</button>
             </div>
             </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="editExexute" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
         </div>
     </div>
 </div>
