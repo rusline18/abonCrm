@@ -9,13 +9,15 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>
-
         @if(!isset($title))
             {{ Request::is('login') ? 'Авторизация' : 'Регистрация' }}
         @else
             {{ $title }}
         @endif
     </title>
+
+    <!-- Font -->
+    <link rel="stylesheet" href="{{ asset('fonts/font-awesome/css/font-awesome.min.css') }}">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
