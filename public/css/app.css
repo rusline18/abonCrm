@@ -45,6 +45,11 @@
   color: white;
 }
 
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
 .registration .panel .header,
 .auth .panel .header,
 .reset .panel .header {
@@ -52,24 +57,52 @@
   font-size: 16px;
 }
 
-.executer-index .panel {
+.executer-index .panel,
+.client-index .panel {
   margin-right: 13px;
   margin-bottom: 13px;
 }
 
-.executer-index .panel .action {
+.executer-index .panel .client-panel .action,
+.client-index .panel .client-panel .action {
+  display: inline-block;
+  position: absolute;
+  right: -10px;
+  cursor: pointer;
+  opacity: 0;
+  -webkit-transition: all .3s ease;
+  transition: all .3s ease;
+}
+
+.executer-index .panel .client-panel:hover .action,
+.client-index .panel .client-panel:hover .action {
+  right: 10px;
+  opacity: 1;
+}
+
+.executer-index .panel .action,
+.client-index .panel .action {
   float: right;
   margin-top: 5px;
   cursor: pointer;
 }
 
-.executer-index .panel:hover {
+.executer-index .panel:hover,
+.client-index .panel:hover {
   -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.18);
           box-shadow: 0 0 10px rgba(0, 0, 0, 0.18);
 }
 
 .modal-create {
   margin-bottom: 10px;
+}
+
+.radio {
+  opacity: 0;
+}
+
+.radio:checked + label i {
+  color: green;
 }
 
 /*!
