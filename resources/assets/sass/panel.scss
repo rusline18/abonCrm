@@ -6,3 +6,13 @@
     }
   }
 }
+
+.executer-index{
+  .panel{
+    margin-right: 13px;
+    margin-bottom: 13px;
+    &:hover{
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.18);
+    }
+  }
+}
