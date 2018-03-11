@@ -4,6 +4,7 @@ namespace Growth\Http\Controllers;
 
 use Growth\Execute;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ExecuteController extends Controller
@@ -19,7 +20,7 @@ class ExecuteController extends Controller
      */
     public function index()
     {
-        $executer = DB::table('execute')->get();
+        $executer = DB::table('execute')->where('id_user', Auth::user()->id)->get();
         return view('execute.index', ['title' => 'Преподаватели', 'executer' => $executer]);
     }
 
@@ -66,7 +67,7 @@ class ExecuteController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('execute.create', ['execute' => Execute::find($id)]);
     }
 
     /**
@@ -78,17 +79,23 @@ class ExecuteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $execute = Execute::find($id);
+        $execute->last_name = $request->input('last_name');
+        $execute->name = $request->input('name');
+        $execute->phone = $request->input('phone');
+        $execute->email = $request->input('email');
+        $execute->save();
+        return $execute;
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return int
      */
     public function destroy($id)
     {
-        //
+        return Execute::destroy($id);
     }
 }
