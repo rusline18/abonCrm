@@ -6,11 +6,42 @@
   font-weight: 300;
   border-radius: 5px;
   border: 1px solid #5b5bf3;
-  padding: 5px;
+  padding: 5px 14px;
+  outline: none;
 }
 
 .button:hover {
   background: #5b5bf3;
+  color: white;
+}
+
+.button-success {
+  background: none;
+  color: black;
+  font-weight: 300;
+  border-radius: 5px;
+  border: 1px solid #3eb70d;
+  padding: 5px 14px;
+  outline: none;
+}
+
+.button-success:hover {
+  background: #3eb70d;
+  color: white;
+}
+
+.button-error {
+  background: none;
+  color: black;
+  font-weight: 300;
+  border-radius: 5px;
+  border: 1px solid #f95858;
+  padding: 5px 14px;
+  outline: none;
+}
+
+.button-error:hover {
+  background: #f95858;
   color: white;
 }
 
@@ -19,6 +50,20 @@
 .reset .panel .header {
   text-align: center;
   font-size: 16px;
+}
+
+.executer-index .panel {
+  margin-right: 13px;
+  margin-bottom: 13px;
+}
+
+.executer-index .panel:hover {
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.18);
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.18);
+}
+
+.modal-create {
+  margin-bottom: 10px;
 }
 
 /*!
