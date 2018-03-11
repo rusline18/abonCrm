@@ -2,7 +2,9 @@
 
 namespace Growth\Http\Controllers;
 
+use Growth\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller
 {
@@ -13,7 +15,8 @@ class ClientController extends Controller
      */
     public function index()
     {
-        return view('client.index', ['title' => 'Клиент']);
+        $clients = Client::where('id_user', Auth::user()->id)->get();
+        return view('client.index', ['title' => 'Клиент', 'clients' => $clients]);
     }
 
     /**
@@ -30,11 +33,14 @@ class ClientController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return Client
      */
     public function store(Request $request)
     {
-        //
+        $add = new Client;
+        $add->fill($request->all());
+        $add->save();
+        return $add;
     }
 
     /**
@@ -56,7 +62,8 @@ class ClientController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        return view('client.update', ['client' => Client::find($id)]);
     }
 
     /**
@@ -68,17 +75,24 @@ class ClientController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $client = Client::find($id);
+        $client->last_name = $request->input('last_name');
+        $client->name = $request->input('name');
+        $client->phone = $request->input('phone');
+        $client->email = $request->input('email');
+        $client->gender = $request->input('gender');
+        $client->save();
+        return $client;
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return int
      */
     public function destroy($id)
     {
-        //
+        return Client::destroy($id);
     }
 }
