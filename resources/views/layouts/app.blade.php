@@ -8,7 +8,14 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ $title }}</title>
+    <title>
+
+        @if(!isset($title))
+            {{ Request::is('login') ? 'Авторизация' : 'Регистрация' }}
+        @else
+            {{ $title }}
+        @endif
+    </title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -66,13 +73,14 @@
                     </div>
                 </div>
             </nav>
+        @auth
         <div class="container">
             <div class="row">
                 <div class="col-lg-2">
                     {{ Auth::user()->name }}
                     <div class="panel">
                         <ul class="nav nav-pills nav-stacked">
-                            <li class="{{ Request::is('execute') ? 'active' : '' }}" ><a href="{{ route('execute') }}">Преподаватели</a></li>
+                            <li class="{{ Request::is('/execute') ? 'active' : '' }}" ><a href="{{ url('/execute') }}">Преподаватели</a></li>
                             <li class="{{ Request::is('#') ? 'active' : '' }}" ><a href="#">Расписание</a></li>
                             <li class="{{ Request::is('#') ? 'active' : '' }}" ><a href="#">Клиенты</a></li>
                             <li class="{{ Request::is('#') ? 'active' : '' }}" ><a href="#">Финансовый учет</a></li>
@@ -87,7 +95,9 @@
                 </div>
             </div>
         </div>
-        {{--@yield('content')--}}
+        @else
+            @yield('content')
+        @endauth
     </div>
 
     <!-- Scripts -->
