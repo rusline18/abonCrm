@@ -80,9 +80,9 @@
                     {{ Auth::user()->name }}
                     <div class="panel">
                         <ul class="nav nav-pills nav-stacked">
-                            <li class="{{ Request::is('/execute') ? 'active' : '' }}" ><a href="{{ url('/execute') }}">Преподаватели</a></li>
+                            <li class="{{ Request::is('execute') ? 'active' : '' }}" ><a href="{{ url('/execute') }}">Преподаватели</a></li>
                             <li class="{{ Request::is('#') ? 'active' : '' }}" ><a href="#">Расписание</a></li>
-                            <li class="{{ Request::is('#') ? 'active' : '' }}" ><a href="#">Клиенты</a></li>
+                            <li class="{{ Request::is('client') ? 'active' : '' }}" ><a href="{{ url('/client') }}">Клиенты</a></li>
                             <li class="{{ Request::is('#') ? 'active' : '' }}" ><a href="#">Финансовый учет</a></li>
                             <li class="{{ Request::is('#') ? 'active' : '' }}" ><a href="#">Занятие</a></li>
                             <li class="{{ Request::is('#') ? 'active' : '' }}" ><a href="#">Филиалы</a></li>
