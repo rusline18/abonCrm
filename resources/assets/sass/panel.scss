@@ -1,3 +1,6 @@
+*{
+  box-sizing:border-box;
+}
 .registration, .auth, .reset{
   .panel{
     .header{
@@ -7,10 +10,24 @@
   }
 }
 
-.executer-index{
+.executer-index, .client-index{
   .panel{
     margin-right: 13px;
     margin-bottom: 13px;
+    .client-panel {
+      .action {
+        display: inline-block;
+        position: absolute;
+        right: -10px;
+        cursor: pointer;
+        opacity: 0;
+        transition: all .3s ease;
+      }
+      &:hover .action {
+        right: 10px;
+        opacity: 1;
+      }
+    }
     .action{
       float: right;
       margin-top: 5px;

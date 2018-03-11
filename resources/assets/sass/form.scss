@@ -1,0 +1,6 @@
+.radio{
+  opacity: 0;
+}
+.radio:checked + label i {
+  color: green
+}
