@@ -19,4 +19,4 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/execute', 'ExecuteController@index')->name('execute');
+Route::resource('execute', 'ExecuteController');
