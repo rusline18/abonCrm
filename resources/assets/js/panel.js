@@ -25,7 +25,23 @@ $(document).ready(function () {
        })
            .fail(err => console.log(err));
    });
+    $('.removeClient').on('click',function () {
+        let id = $(this).parent('div').parent('div.client-panel').attr('id');
+        console.log(id);
+        $.ajax({
+            type: 'delete',
+            data: {_token: $('meta[name="csrf-token"]').attr('content')},
+            url: `http://localhost:8000/client/${id}`
+        }).done(() => {
+            $(`#${id}`).parent().remove();
+        })
+            .fail(err => console.log(err));
+    });
     $("body").on('click', '.editModal', function (e) {
+        e.preventDefault();
+        $('#edit').modal('show').find('.modal-content').load($(this).attr('href'));
+    })
+    $("body").on('click', '.editClientModal', function (e) {
         e.preventDefault();
         $('#edit').modal('show').find('.modal-content').load($(this).attr('href'));
     })
