@@ -2,6 +2,7 @@
 
 namespace Growth\Http\Controllers;
 
+use Growth\Exectue_direction;
 use Growth\Execute;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -97,5 +98,11 @@ class ExecuteController extends Controller
     public function destroy($id)
     {
         return Execute::destroy($id);
+    }
+
+    public function executeDestroy($id)
+    {
+        return DB::table('execute_direction')->where('execute_id', $id)->delete();
+
     }
 }
