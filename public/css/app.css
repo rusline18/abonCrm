@@ -161,6 +161,11 @@
   margin-bottom: 10px;
 }
 
+#modal-create_branch .modal-body {
+  height: 270px;
+  overflow: auto;
+}
+
 .radio {
   opacity: 0;
 }
@@ -171,6 +176,42 @@
 
 .direction-index input[type=text] {
   width: 200px;
+}
+
+#modal-create_branch .modal-body .room .form-group {
+  height: 37px;
+}
+
+#modal-create_branch .modal-body .room .form-group .create-room {
+  width: 295px;
+}
+
+#modal-create_branch .modal-body .room .form-group .button-success {
+  line-height: 33px;
+  font-size: 31px;
+  position: relative;
+  top: -36px;
+  left: -14px;
+  cursor: pointer;
+  padding: 0 8px 1px 8px;
+}
+
+#modal-create_branch .modal-body .room .form-group .button-success:hover {
+  color: white;
+}
+
+#modal-create_branch .modal-body .room .form-group .button-error {
+  line-height: 33px;
+  font-size: 31px;
+  position: relative;
+  top: -36px;
+  left: 49px;
+  cursor: pointer;
+  padding: 0 8px 1px 8px;
+}
+
+#modal-create_branch .modal-body .room .form-group .button-error:hover {
+  color: white;
 }
 
 /*!
