@@ -45,6 +45,33 @@
   color: white;
 }
 
+.chips {
+  width: 142px;
+  background: #60aeff;
+  color: white;
+  padding: 3px 5px 4px 5px;
+  border-radius: 10px;
+  margin-left: 7px;
+  margin-top: 5px;
+}
+
+.chips .close-chips {
+  font-size: 11px;
+  left: 15px;
+  position: relative;
+  top: 4px;
+  float: right;
+  cursor: pointer;
+  opacity: 0;
+  -webkit-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out;
+}
+
+.chips:hover .close-chips {
+  opacity: 1;
+  left: 6px;
+}
+
 * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -93,6 +120,43 @@
           box-shadow: 0 0 10px rgba(0, 0, 0, 0.18);
 }
 
+.direction-index {
+  margin-top: 20px;
+}
+
+.direction-index .direction-table .direction-info {
+  height: 150px;
+}
+
+.direction-index .direction-table p {
+  font-size: 16px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.direction-index .direction-table .panel {
+  margin-right: 5px;
+  margin-bottom: 6px;
+}
+
+.direction-index .direction-table .panel .action {
+  display: inline-block;
+  position: absolute;
+  float: right;
+  width: 16px;
+  right: -10px;
+  top: 7px;
+  cursor: pointer;
+  opacity: 0;
+  -webkit-transition: all .3s ease;
+  transition: all .3s ease;
+}
+
+.direction-index .direction-table .panel:hover .action {
+  right: 10px;
+  opacity: 1;
+}
+
 .modal-create {
   margin-bottom: 10px;
 }
@@ -103,6 +167,10 @@
 
 .radio:checked + label i {
   color: green;
+}
+
+.direction-index input[type=text] {
+  width: 200px;
 }
 
 /*!

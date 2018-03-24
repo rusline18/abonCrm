@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'debug' => env('APP_DEBUG', false),
+    'debug' => env('APP_DEBUG', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -176,6 +176,7 @@ return [
         // Growth\Providers\BroadcastServiceProvider::class,
         Growth\Providers\EventServiceProvider::class,
         Growth\Providers\RouteServiceProvider::class,
+
 
     ],
 
