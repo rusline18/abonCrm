@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    let urlSite = window.location.origin;
    $(function () {
        $('[data-toggle="tooltip"]').tooltip()
    });
@@ -45,4 +46,28 @@ $(document).ready(function () {
         e.preventDefault();
         $('#edit').modal('show').find('.modal-content').load($(this).attr('href'));
     })
+    $('body').on('click', '.remove-direction', function () {
+        let id = $(this).attr('id');
+        console.log($(this).parents('div>.direction-info'));
+        $.ajax({
+            type: 'delete',
+            data: {_token: $('meta[name="csrf-token"]').attr('content')},
+            url: `${urlSite}/direction/${id}`
+        }).done(() => {
+            $(this).parents('div>.direction-info').remove();
+        }).fail(err => console.log(err))
+    })
+    $('body').on('click', '.close-chips', function () {
+        let id = $(this).data('id');
+        $.post({
+            type: 'delete',
+            url: `${urlSite}//direction/execute-delete/${id}`,
+            data: {_token: $('meta[name="csrf-token"]').attr('content')}
+        })
+            .done(res => {
+                console.log(res);
+                $(this).parent().remove();
+            })
+            .fail(err => console.log(err.responseJSON.message))
+    });
 });
