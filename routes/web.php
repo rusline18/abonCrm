@@ -21,3 +21,6 @@ Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
 Route::resource('execute', 'ExecuteController')->middleware('auth');
 Route::resource('client', 'ClientController')->middleware('auth');
+Route::resource('season', 'SeasonController')->middleware('auth');
+Route::resource('direction', 'DirectionController')->middleware('auth');
+Route::delete('/direction/execute-delete/{id}', 'ExecuteController@executeDestroy');
