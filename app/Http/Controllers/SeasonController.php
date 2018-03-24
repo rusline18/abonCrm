@@ -14,7 +14,7 @@ class SeasonController extends Controller
      */
     public function index()
     {
-        //
+        return view('season.season');
     }
 
     /**
