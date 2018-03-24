@@ -16,6 +16,7 @@
         @endif
     </title>
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
     <!-- Font -->
     <link rel="stylesheet" href="{{ asset('fonts/font-awesome/css/font-awesome.min.css') }}">
 
@@ -82,13 +83,14 @@
                     {{ Auth::user()->name }}
                     <div class="panel">
                         <ul class="nav nav-pills nav-stacked">
-                            <li class="{{ Request::is('execute') ? 'active' : '' }}" ><a href="{{ url('/execute') }}">Преподаватели</a></li>
-                            <li class="{{ Request::is('#') ? 'active' : '' }}" ><a href="#">Расписание</a></li>
-                            <li class="{{ Request::is('client') ? 'active' : '' }}" ><a href="{{ url('/client') }}">Клиенты</a></li>
-                            <li class="{{ Request::is('#') ? 'active' : '' }}" ><a href="#">Финансовый учет</a></li>
-                            <li class="{{ Request::is('#') ? 'active' : '' }}" ><a href="#">Занятие</a></li>
-                            <li class="{{ Request::is('#') ? 'active' : '' }}" ><a href="#">Филиалы</a></li>
-                            <li class="{{ Request::is('#') ? 'active' : '' }}" ><a href="#">Направление</a></li>
+                            <li class="{{ Request::is('execute') ? 'active' : '' }}" ><a href="{{ url('/execute') }}"><span class="glyphicon glyphicon-education"></span> Преподаватели</a></li>
+                            <li class="{{ Request::is('#') ? 'active' : '' }}" ><a href="#"><span class="glyphicon glyphicon-calendar"></span> Расписание</a></li>
+                            <li class="{{ Request::is('client') ? 'active' : '' }}" ><a href="{{ url('/client') }}"><span class="glyphicon glyphicon-user"></span> Клиенты</a></li>
+                            <li class="{{ Request::is('#') ? 'active' : '' }}" ><a href="#"><span class="glyphicon glyphicon-ruble"></span> Финансовый учет</a></li>
+                            <li class="{{ Request::is('#') ? 'active' : '' }}" ><a href="#"><span class="glyphicon glyphicon-hourglass"></span> Занятие</a></li>
+                            <li class="{{ Request::is('#') ? 'active' : '' }}" ><a href="#"><span class="glyphicon glyphicon-home"></span> Филиалы</a></li>
+                            <li class="{{ Request::is('direction') ? 'active' : '' }}" ><a href="{{ url('/direction') }}"><span class="glyphicon glyphicon-transfer"></span> Направление</a></li>
+                            <li class="{{ Request::is('season') ? 'active' : '' }}" ><a href="{{ url('/season') }}"><span class="glyphicon glyphicon-credit-card"></span> Абонименты</a></li>
                         </ul>
                     </div>
                 </div>
@@ -104,5 +106,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 </body>
 </html>
