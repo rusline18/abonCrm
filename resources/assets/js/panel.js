@@ -38,14 +38,6 @@ $(document).ready(function () {
         })
             .fail(err => console.log(err));
     });
-    $("body").on('click', '.editModal', function (e) {
-        e.preventDefault();
-        $('#edit').modal('show').find('.modal-content').load($(this).attr('href'));
-    })
-    $("body").on('click', '.editClientModal', function (e) {
-        e.preventDefault();
-        $('#edit').modal('show').find('.modal-content').load($(this).attr('href'));
-    })
     $('body').on('click', '.remove-direction', function () {
         let id = $(this).attr('id');
         console.log($(this).parents('div>.direction-info'));
