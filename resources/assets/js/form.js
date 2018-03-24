@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    let urlSite = window.location.origin;
+    create('#form-create_direction', 'direction');
     $('.form-create-execute').on('submit', function (e) {
         e.preventDefault();
         let form = $(this).serialize();
@@ -82,5 +84,36 @@ $(document).ready(function () {
                     <p><strong>Email:</strong> ${res.email}</p>`)
         })
             .fail(err => console.log(err.responseJSON.message))
-    })
+    });
+    $('.js-example-basic-single').select2({
+        width: '300px',
+        placeholder: "Выберите преподавателя"
+    });
+
+    function create(selector, url) {
+        $(selector).on('submit', function (e) {
+            e.preventDefault();
+            $.post({
+                data: $(this).serialize(),
+                url: `${urlSite}/${url}`
+            })
+                .done(res => {
+                    $(selector)[0].reset();
+                    let executes = res.execute.map(execute => `<div class="chips col-lg-5">${execute.last_name} ${execute.name}<span class="close-chips" data-id="${execute.id}">X</span></div>
+`);
+                    $('.direction-table').append(`<div class="panel panel-default col-lg-5 direction-info">
+                    <div class="panel-body">
+                        <p>${res.name}</p>
+                        <div class="action">
+                            <span class="glyphicon glyphicon-remove" id="${res.id}"></span>
+                        </div>
+                        <div>
+                            ${executes}
+                        </div>
+                    </div>
+                </div>`)
+                })
+                .fail(err => console.log(err.responseJSON.message))
+        });
+    }
 });
