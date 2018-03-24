@@ -38,3 +38,36 @@
     }
   }
 }
+
+.direction-index{
+  margin-top: 20px;
+  .direction-table{
+    .direction-info{
+      height: 150px;
+    }
+    p{
+      font-size: 16px;
+      text-align: center;
+      font-weight: 700;
+    }
+    .panel{
+      margin-right: 5px;
+      margin-bottom: 6px;
+      .action {
+        display: inline-block;
+        position: absolute;
+        float: right;
+        width: 16px;
+        right: -10px;
+        top: 7px;
+        cursor: pointer;
+        opacity: 0;
+        transition: all .3s ease;
+      }
+      &:hover .action {
+        right: 10px;
+        opacity: 1;
+      }
+    }
+  }
+}

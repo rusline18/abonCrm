@@ -4,3 +4,9 @@
 .radio:checked + label i {
   color: green
 }
+
+.direction-index{
+  input[type=text]{
+    width: 200px;
+  }
+}
