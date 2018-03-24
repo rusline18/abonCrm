@@ -14,7 +14,8 @@ class SheduleController extends Controller
      */
     public function index()
     {
-        //
+        setlocale(LC_TIME, 'Russian');
+        return view('shedule.index', ['title' => 'Расписание']);
     }
 
     /**
