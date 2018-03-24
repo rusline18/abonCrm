@@ -1,3 +1,16 @@
+@mixin buttonAction($left){
+  line-height: 33px;
+  font-size: 31px;
+  position: relative;
+  top: -36px;
+  left: $left;
+  cursor: pointer;
+  padding: 0 8px 1px 8px;
+  &:hover{
+    color: white;
+  }
+}
+
 .radio{
   opacity: 0;
 }
@@ -8,5 +21,23 @@
 .direction-index{
   input[type=text]{
     width: 200px;
+  }
+}
+#modal-create_branch{
+  .modal-body{
+    .room{
+      .form-group{
+        height: 37px;
+        .create-room{
+          width: 295px;
+        }
+        .button-success{
+          @include buttonAction(-14px);
+        }
+        .button-error{
+          @include buttonAction(49px);
+        }
+      }
+    }
   }
 }
