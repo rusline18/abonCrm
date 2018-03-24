@@ -1,8 +1,5 @@
 $(document).ready(function () {
     let urlSite = window.location.origin;
-   $(function () {
-       $('[data-toggle="tooltip"]').tooltip()
-   });
    $('.executer-panel').hover(function(){
        let id = $(this).attr('id');
        $(this).prepend(`<div class="action">
