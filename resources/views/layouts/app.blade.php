@@ -84,11 +84,11 @@
                     <div class="panel">
                         <ul class="nav nav-pills nav-stacked">
                             <li class="{{ Request::is('execute') ? 'active' : '' }}" ><a href="{{ url('/execute') }}"><span class="glyphicon glyphicon-education"></span> Преподаватели</a></li>
-                            <li class="{{ Request::is('#') ? 'active' : '' }}" ><a href="#"><span class="glyphicon glyphicon-calendar"></span> Расписание</a></li>
+                            <li class="{{ Request::is('shedule') ? 'active' : '' }}" ><a href="{{ url('/shedule') }}"><span class="glyphicon glyphicon-calendar"></span> Расписание</a></li>
                             <li class="{{ Request::is('client') ? 'active' : '' }}" ><a href="{{ url('/client') }}"><span class="glyphicon glyphicon-user"></span> Клиенты</a></li>
                             <li class="{{ Request::is('#') ? 'active' : '' }}" ><a href="#"><span class="glyphicon glyphicon-ruble"></span> Финансовый учет</a></li>
                             <li class="{{ Request::is('#') ? 'active' : '' }}" ><a href="#"><span class="glyphicon glyphicon-hourglass"></span> Занятие</a></li>
-                            <li class="{{ Request::is('#') ? 'active' : '' }}" ><a href="#"><span class="glyphicon glyphicon-home"></span> Филиалы</a></li>
+                            <li class="{{ Request::is('branch') ? 'active' : '' }}" ><a href="{{ url('/branch') }}"><span class="glyphicon glyphicon-home"></span> Филиалы</a></li>
                             <li class="{{ Request::is('direction') ? 'active' : '' }}" ><a href="{{ url('/direction') }}"><span class="glyphicon glyphicon-transfer"></span> Направление</a></li>
                             <li class="{{ Request::is('season') ? 'active' : '' }}" ><a href="{{ url('/season') }}"><span class="glyphicon glyphicon-credit-card"></span> Абонименты</a></li>
                         </ul>
