@@ -6,7 +6,9 @@
  */
 
 require('./bootstrap');
+require('./send-form');
 require('./form');
+require('./index');
 require('./panel');
 
 window.Vue = require('vue');
