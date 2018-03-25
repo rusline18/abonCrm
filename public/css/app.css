@@ -125,21 +125,13 @@
 }
 
 .direction-index .direction-table .direction-info {
-  height: 150px;
-}
-
-.direction-index .direction-table p {
-  font-size: 16px;
-  text-align: center;
-  font-weight: 700;
-}
-
-.direction-index .direction-table .panel {
   margin-right: 5px;
   margin-bottom: 6px;
+  height: 150px;
+  overflow: hidden;
 }
 
-.direction-index .direction-table .panel .action {
+.direction-index .direction-table .direction-info .action {
   display: inline-block;
   position: absolute;
   float: right;
@@ -152,8 +144,63 @@
   transition: all .3s ease;
 }
 
-.direction-index .direction-table .panel:hover .action {
+.direction-index .direction-table .direction-info:hover .action {
   right: 10px;
+  opacity: 1;
+}
+
+.direction-index .direction-table .direction-info:hover {
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.18);
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.18);
+}
+
+.direction-index .direction-table .direction-info p {
+  font-size: 16px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.branch-index .branch-table {
+  margin-top: 20px;
+}
+
+.branch-index .branch-table .branch-info {
+  margin-right: 13px;
+  margin-bottom: 13px;
+  height: 150px;
+  overflow: hidden;
+}
+
+.branch-index .branch-table .branch-info .branch-info_address {
+  text-align: center;
+}
+
+.branch-index .branch-table .branch-info:hover {
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.18);
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.18);
+}
+
+.branch-index .branch-table .branch-info p {
+  font-size: 16px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.branch-index .branch-table .branch-info .action-branch {
+  display: inline-block;
+  position: absolute;
+  float: right;
+  width: 16px;
+  right: 0;
+  top: 7px;
+  cursor: pointer;
+  opacity: 0;
+  -webkit-transition: all .3s ease;
+  transition: all .3s ease;
+}
+
+.branch-index .branch-table .branch-info:hover .action-branch {
+  right: 20px;
   opacity: 1;
 }
 

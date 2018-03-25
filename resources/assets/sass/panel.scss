@@ -1,3 +1,32 @@
+@mixin panel_title{
+  font-size: 16px;
+  text-align: center;
+  font-weight: 700;
+}
+@mixin heveraction($rightEnd){
+  right: $rightEnd;
+  opacity: 1;
+}
+@mixin action($rightStart, $rightEnd){
+    display: inline-block;
+    position: absolute;
+    float: right;
+    width: 16px;
+    right: $rightStart;
+    top: 7px;
+    cursor: pointer;
+    opacity: 0;
+    transition: all .3s ease;
+}
+
+@mixin panel {
+  height: 150px;
+  overflow: hidden;
+  &:hover{
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.18);
+  }
+}
+
 *{
   box-sizing:border-box;
 }
@@ -43,30 +72,44 @@
   margin-top: 20px;
   .direction-table{
     .direction-info{
-      height: 150px;
-    }
-    p{
-      font-size: 16px;
-      text-align: center;
-      font-weight: 700;
-    }
-    .panel{
       margin-right: 5px;
       margin-bottom: 6px;
       .action {
-        display: inline-block;
-        position: absolute;
-        float: right;
-        width: 16px;
-        right: -10px;
-        top: 7px;
-        cursor: pointer;
-        opacity: 0;
-        transition: all .3s ease;
+        @include action(-10px, 10px);
       }
-      &:hover .action {
-        right: 10px;
-        opacity: 1;
+      &:hover {
+        .action{
+          @include heveraction(10px)
+        }
+      }
+      @include panel;
+      p{
+        @include panel_title;
+      }
+    }
+  }
+}
+
+.branch-index{
+  .branch-table{
+    margin-top: 20px;
+    .branch-info{
+      margin-right: 13px;
+      margin-bottom: 13px;
+      .branch-info_address{
+        text-align: center;
+      }
+      @include panel;
+      p{
+        @include panel_title;
+      }
+      .action-branch {
+        @include action(0, 20px);
+      }
+      &:hover {
+        .action-branch {
+          @include heveraction(20px)
+        }
       }
     }
   }
