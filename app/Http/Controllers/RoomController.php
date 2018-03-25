@@ -76,10 +76,10 @@ class RoomController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \Growth\Room  $room
-     * @return \Illuminate\Http\Response
+     * @return int
      */
     public function destroy(Room $room)
     {
-        //
+        return Room::destroy($room->id);
     }
 }
