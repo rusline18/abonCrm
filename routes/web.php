@@ -25,4 +25,6 @@ Route::resource('season', 'SeasonController')->middleware('auth');
 Route::resource('direction', 'DirectionController')->middleware('auth');
 Route::resource('shedule', 'SheduleController')->middleware('auth');
 Route::resource('branch', 'BranchController')->middleware('auth');
-Route::delete('/direction/execute-delete/{id}', 'ExecuteController@executeDestroy');
+Route::resource('room', 'RoomController')->middleware('auth');
+
+Route::delete('/direction/execute-delete/{id}', 'ExecuteController@executeDestroy')->middleware('auth');
