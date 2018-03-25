@@ -1,5 +1,9 @@
 $(document).ready(function () {
     let i = 1;
+    $('.js-example-basic-single').select2({
+        width: '300px',
+        placeholder: "Выберите преподавателя"
+    });
     $('body').on('click', '.add-room', function () {
        i++
         $(this).closest('.room').append(`<div class="form-group col-lg-8" style="height: 37px">
