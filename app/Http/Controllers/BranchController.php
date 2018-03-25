@@ -5,6 +5,7 @@ namespace Growth\Http\Controllers;
 use Growth\Branch;
 use Growth\Room;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BranchController extends Controller
 {
@@ -15,7 +16,17 @@ class BranchController extends Controller
      */
     public function index()
     {
-        return view('branch.index', ['title' => 'Филиалы']);
+        $arr = [];
+        $branch = Branch::where('user_id', Auth::user()->id)->get();
+        foreach ($branch as $value){
+            $rooms = Branch::find($value->id)->rooms()->get();
+            foreach ($rooms as $room){
+                $arr[$value->id]['name'] = $value->name;
+                $arr[$value->id]['address'] = $value->city.' ул.'.$value->street.' д.'.$value->build.' оф.'.$value->appartament;
+                $arr[$value->id]['room'][$room->id] = $room->name;
+            }
+        }
+        return view('branch.index', ['title' => 'Филиалы', 'branchs' => collect($arr)]);
     }
 
     /**
@@ -36,6 +47,7 @@ class BranchController extends Controller
      */
     public function store(Request $request)
     {
+        $arr = [];
         $branch = new Branch();
         $branch->fill($request->all());
         $branch->save();
@@ -44,7 +56,9 @@ class BranchController extends Controller
             $room->branch_id = $branch->id;
             $room->name = $value;
             $room->save();
+            $arr[] = ['id' => $room->id, 'name' => $room->name];
         }
+        $branch->rooms = $arr;
         return $branch;
     }
 
@@ -86,10 +100,10 @@ class BranchController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \Growth\Branch  $branch
-     * @return \Illuminate\Http\Response
+     * @return int
      */
     public function destroy(Branch $branch)
     {
-        //
+        return Branch::destroy($branch->id);
     }
 }
