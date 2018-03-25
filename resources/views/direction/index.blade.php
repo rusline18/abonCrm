@@ -34,7 +34,7 @@
                     </div>
                     <div>
                         @foreach($direction['execute'] as $index => $item)
-                            <div class="chips col-lg-5">{{ $item['last_name'].' '.$item['name'] }} <span class="close-chips" data-id="{{ $index }}">X</span></div>
+                            <div class="chips col-lg-5">{{ $item['last_name'].' '.$item['name'] }} <span class="close-chips remove-execute" data-id="{{ $index }}">X</span></div>
                         @endforeach
                     </div>
                 </div>
