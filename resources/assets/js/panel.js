@@ -12,6 +12,20 @@ $(document).ready(function () {
    function () {
        $('.action').remove();
    });
+
+   $('body').on('click', '.action-branch',function () {
+       let id = $(this).attr('id');
+       $.ajax({
+           type: 'delete',
+           url: `${urlSite}/branch/${id}`,
+           data: {_token: $('meta[name="csrf-token"]').attr('content')}
+       })
+           .done(() => {
+               $(this).parents('.branch-info').remove();
+           })
+           .fail(err => console.error(err.responseJSON));
+       $(this).parents('.branch-panel')
+   })
    $('body').on('click', '.remove',function () {
        let id = $(this).parent('div').attr('id');
        $.ajax({
@@ -46,11 +60,24 @@ $(document).ready(function () {
             $(this).parents('div>.direction-info').remove();
         }).fail(err => console.log(err))
     })
-    $('body').on('click', '.close-chips', function () {
+    $('body').on('click', '.remove-room', function () {
+        let id = $(this).data('id');
+        $.ajax({
+            type: 'delete',
+            url: `${urlSite}/room/${id}`,
+            data: {_token: $('meta[name="csrf-token"]').attr('content')}
+        })
+            .done(res => {
+                console.log(res);
+                $(this).parent().remove();
+            })
+            .fail(err => console.log(err.responseJSON.message))
+    })
+    $('body').on('click', '.remove-execute', function () {
         let id = $(this).data('id');
         $.post({
             type: 'delete',
-            url: `${urlSite}//direction/execute-delete/${id}`,
+            url: `${urlSite}/direction/execute-delete/${id}`,
             data: {_token: $('meta[name="csrf-token"]').attr('content')}
         })
             .done(res => {
