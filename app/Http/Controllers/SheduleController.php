@@ -14,7 +14,6 @@ class SheduleController extends Controller
      */
     public function index()
     {
-        setlocale(LC_TIME, 'Russian');
         return view('shedule.index', ['title' => 'Расписание']);
     }
 
@@ -32,11 +31,11 @@ class SheduleController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return Shedule
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
