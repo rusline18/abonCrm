@@ -3,6 +3,7 @@
 namespace Growth\Http\Controllers;
 
 use Growth\Branch;
+use Growth\Room;
 use Illuminate\Http\Request;
 
 class BranchController extends Controller
@@ -31,11 +32,20 @@ class BranchController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return Branch
      */
     public function store(Request $request)
     {
-        //
+        $branch = new Branch();
+        $branch->fill($request->all());
+        $branch->save();
+        foreach($request->input('room') as $value){
+            $room = new Room();
+            $room->branch_id = $branch->id;
+            $room->name = $value;
+            $room->save();
+        }
+        return $branch;
     }
 
     /**
