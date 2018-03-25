@@ -2,13 +2,8 @@ $(document).ready(function () {
     let urlSite = window.location.origin;
     $('#form-create_branch').submit(function (e) {
         e.preventDefault();
-        $.post({
-            data: $(this).serialize(),
-            url: `${urlSite}/branch`
-        })
-            .done(res => console.log(res))
-            .fail(err => console.error(err.responseJSON.message))
-    })
+        send('post', $(this).serialize(), `${urlSite}/branch`, '#modal-create_branch', '#form-create_branch');
+    });
 
     $('#form-create_direction').on('submit', function (e) {
         e.preventDefault();
@@ -118,4 +113,30 @@ $(document).ready(function () {
         })
             .fail(err => console.log(err.responseJSON.message))
     });
+
+    function send(type, data, url, idModal = null, idForm) {
+        $.ajax({
+            type: type,
+            data: data,
+            url: url
+        })
+            .done(res => {
+                $(idForm)[0].reset();
+                if (idModal){ $('#modal-create_branch').modal('hide'); }
+                console.log(res);
+                let room = res.rooms.map(item => `<div class="col-lg-5 chips">
+                            <span data-id="${ item.id }" class="close-chips remove-room">X</span>
+                            <div>${ item.name }</div>
+                        </div>`);
+                $('.branch-table').append(`<div class="col-lg-5 panel panel-default branch-info">
+                <div class="panel-body">
+                    <span id="${res.id}" class="action-branch glyphicon glyphicon-remove"></span>
+                    <p>${res.name}</p>
+                    <div class="branch-info_address">${ res.city } ул. ${ res.street } д.${ res.build } оф.${ res.appartament }</div>
+                    ${ room }
+                </div>
+            </div>`)
+            })
+            .fail(err => console.error(err.responseJSON.message))
+    }
 });
