@@ -106,8 +106,8 @@ class DirectionController extends Controller
      * @param  \Growth\Direction  $direction
      * @return int
      */
-    public function destroy($id)
+    public function destroy(Direction $direction)
     {
-        return Direction::destroy($id);
+        return Direction::destroy($direction->id);
     }
 }
