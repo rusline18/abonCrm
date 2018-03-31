@@ -10,7 +10,8 @@ require('./send-form');
 require('./form');
 require('./index');
 require('./panel');
-
+require('bootstrap-datetimepicker-sass/src/js/bootstrap-datetimepicker');
+require('moment');
 window.Vue = require('vue');
 
 /**

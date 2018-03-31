@@ -16,4 +16,8 @@ $(document).ready(function () {
     $('body').on('click', '.remove-room', function () {
         $(this).parents('.form-group').remove();
     })
+    $('#datetimepicker').datetimepicker({
+        format: 'DD MMMM YYYY HH:m',
+        locale: 'ru'
+    });
 });
