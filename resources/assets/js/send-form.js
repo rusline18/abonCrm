@@ -5,6 +5,19 @@ $(document).ready(function () {
         send('post', $(this).serialize(), `${urlSite}/branch`, '#modal-create_branch', '#form-create_branch');
     });
 
+    $('#form-create_shedule').submit(function (e) {
+        e.preventDefault();
+        $.post({
+            url: `${urlSite}/shedule`,
+            data: $(this).serialize()
+            })
+            .done(() => {
+                $('#modal-create_shedule').modal('hide');
+                $('#form-create_shedule')[0].reset();
+            })
+            .fail(err => console.log(err.responseJSON.message))
+    });
+
     $('#form-create_direction').on('submit', function (e) {
         e.preventDefault();
         $.post({
