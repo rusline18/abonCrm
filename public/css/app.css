@@ -225,6 +225,14 @@
   width: 200px;
 }
 
+#modal-create_shedule .select-room {
+  display: none;
+}
+
+#modal-create_shedule .selected-room_disabled {
+  display: block;
+}
+
 #modal-create_branch .modal-body .room .form-group {
   height: 37px;
 }
