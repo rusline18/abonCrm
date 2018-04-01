@@ -11,6 +11,7 @@ require('./form');
 require('./index');
 require('./panel');
 require('bootstrap-datetimepicker-sass/src/js/bootstrap-datetimepicker');
+require('select2/dist/js/select2.min');
 require('moment');
 window.Vue = require('vue');
 
