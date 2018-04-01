@@ -28,3 +28,4 @@ Route::resource('branch', 'BranchController')->middleware('auth');
 Route::resource('room', 'RoomController')->middleware('auth');
 
 Route::delete('/direction/execute-delete/{id}', 'ExecuteController@executeDestroy')->middleware('auth');
+Route::get('/branch/rooms/{id}', 'BranchController@rooms')->middleware('auth');
