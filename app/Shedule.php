@@ -18,4 +18,9 @@ class Shedule extends Model
     {
         return $this->belongsToMany('Growth\Client', 'shedule_client');
     }
+
+    public function getTypeNameAttribute()
+    {
+        return $this->type == 1 ? 'Групповое занятие' : 'Индивидульные занятие';
+    }
 }
