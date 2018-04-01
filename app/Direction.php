@@ -13,4 +13,9 @@ class Direction extends Model
     {
         return $this->belongsToMany('Growth\Execute', 'execute_direction');
     }
+
+    public function shedule()
+    {
+        return $this->hasOne('Growth\Shedule');
+    }
 }
