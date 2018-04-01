@@ -17,7 +17,15 @@ $(document).ready(function () {
         $(this).parents('.form-group').remove();
     })
     $('#datetimepicker').datetimepicker({
-        format: 'DD MMMM YYYY HH:m',
+        format: 'DD MMMM YYYY',
+        pickTime: false,
+        locale: 'ru',
+        language: 'ru-RU',
+    });
+    $('.time').datetimepicker({
+        format: 'HH:mm',
+        minuteStepping: 30,
+        pickDate: false,
         locale: 'ru',
         language: 'ru-RU',
     });
