@@ -55,6 +55,7 @@ class BranchController extends Controller
             $room = new Room();
             $room->branch_id = $branch->id;
             $room->name = $value;
+            $room->user_id = Auth::user()->id;
             $room->save();
             $arr[] = ['id' => $room->id, 'name' => $room->name];
         }
@@ -105,5 +106,15 @@ class BranchController extends Controller
     public function destroy(Branch $branch)
     {
         return Branch::destroy($branch->id);
+    }
+
+    /**
+     * Выводит список всех комнат в данном филиале
+     * @param Branch $branch
+     * @return Branch
+     */
+    public function rooms($id)
+    {
+        return Branch::find($id)->rooms()->get();
     }
 }
