@@ -15,4 +15,9 @@ class Execute extends Model
     {
         return $this->belongsToMany('Growth\Direction', 'execute_direction');
     }
+
+    public function getFullNameAttribute()
+    {
+        return "{$this->last_name} {$this->name}";
+    }
 }
