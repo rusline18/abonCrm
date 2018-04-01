@@ -18,6 +18,26 @@ $(document).ready(function () {
     })
     $('#datetimepicker').datetimepicker({
         format: 'DD MMMM YYYY HH:m',
-        locale: 'ru'
+        locale: 'ru',
+        language: 'ru-RU',
     });
+    $('#select-branch').change(function () {
+        let value = $(this).val();
+        if ($(this).val() !== null){
+            $.ajax({
+                type: 'get',
+                url: `${window.location.origin}/branch/rooms/${value}`,
+                beforeSend: function () {
+                    $('.select-room').css('display', 'block').html(`<option value="" disabled selected>Загрузка</option>`)
+                }
+            })
+                .done(res => {
+                    let room = res.map(room => {
+                        return `<option value="${room.id}">${room.name}</option>`
+                    });
+                    $('.select-room').css('display', 'block').html(`<option value="" disabled selected>Выберите комнату</option>${room}`);
+                })
+                .fail(err => console.error(err.responseJSON.message));
+        }
+    })
 });
