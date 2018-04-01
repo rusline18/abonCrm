@@ -18,9 +18,9 @@ class DirectionController extends Controller
     {
         $arr = [];
         $directions = Direction::where('id_user', Auth::user()->id)->get();
-        foreach ($directions as $value){
+        foreach ($directions as $key => $value){
             $execute = Direction::find($value->id)->executes()->get();
-            foreach ($execute as $key => $item){
+            foreach ($execute as $item){
                 $arr[$value->id]['name'] = $value->name;
                 $arr[$value->id]['execute'][$item->id]['name'] = $item->name;
                 $arr[$value->id]['execute'][$item->id]['last_name'] = $item->name;
