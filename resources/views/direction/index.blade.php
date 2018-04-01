@@ -8,10 +8,10 @@
                 <div class="form-group">
                     {{ csrf_field() }}
                     <input type="hidden" value="{{ Auth::user()->id }}" name="id_user">
-                    <input type="text" name="name" placeholder="Название направление" class="form-control">
+                    <input type="text" name="name" placeholder="Название направление" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <select name="execute[]" class="form-control js-example-basic-single addExecute" multiple="multiple" title="Преподаватель">
+                    <select name="execute[]" class="form-control js-example-basic-single addExecute" multiple="multiple" title="Преподаватель" required>
                         @foreach($execute as $teacher)
                             <option value="{{ $teacher->id }}">{{ $teacher->last_name.' '.$teacher->name }}</option>
                         @endforeach
