@@ -21,8 +21,12 @@ class CreateVisit extends Migration
             $table->integer('created_at');
             $table->integer('updated_at');
 
-            $table->foreign('shedule_id')->references('id')->on('shedule');
-            $table->foreign('season_id')->references('id')->on('season');
+            $table->foreign('shedule_id')->references('id')->on('shedule')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('season_id')->references('id')->on('season')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 

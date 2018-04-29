@@ -23,8 +23,12 @@ class CreateLesson extends Migration
             $table->integer('created_at');
             $table->integer('updated_at');
 
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('direction_id')->references('id')->on('direction');
+            $table->foreign('user_id')->references('id')->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('direction_id')->references('id')->on('direction')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 

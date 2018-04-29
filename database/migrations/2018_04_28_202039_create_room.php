@@ -20,7 +20,9 @@ class CreateRoom extends Migration
             $table->integer('created_at');
             $table->integer('updated_at');
 
-            $table->foreign('branch_id')->references('id')->on('branch');
+            $table->foreign('branch_id')->references('id')->on('branch')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 

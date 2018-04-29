@@ -24,7 +24,9 @@ class CreateSeason extends Migration
             $table->integer('created_at');
             $table->integer('updated_at');
 
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 

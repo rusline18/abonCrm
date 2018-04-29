@@ -18,8 +18,12 @@ class CreateExecuteDirection extends Migration
             $table->integer('direction_id');
             $table->integer('execute_id');
 
-            $table->foreign('direction_id')->references('id')->on('direction');
-            $table->foreign('execute_id')->references('id')->on('execute');
+            $table->foreign('direction_id')->references('id')->on('direction')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('execute_id')->references('id')->on('execute')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 

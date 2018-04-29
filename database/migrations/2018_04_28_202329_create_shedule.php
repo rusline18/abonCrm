@@ -21,10 +21,18 @@ class CreateShedule extends Migration
             $table->integer('lesson_id');
             $table->integer('room_id');
 
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('lesson_id')->references('id')->on('lesson');
-            $table->foreign('direction_id')->references('id')->on('direction');
-            $table->foreign('room_id')->references('id')->on('room');
+            $table->foreign('user_id')->references('id')->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('lesson_id')->references('id')->on('lesson')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('direction_id')->references('id')->on('direction')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('room_id')->references('id')->on('room')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 
