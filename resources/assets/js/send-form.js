@@ -32,7 +32,7 @@ $(document).ready(function () {
                     <div class="panel-body">
                         <p>${res.name}</p>
                         <div class="action">
-                            <span class="glyphicon glyphicon-remove" id="${res.id}"></span>
+                            <span class="glyphicon glyphicon-remove remove-direction" id="${res.id}"></span>
                         </div>
                         <div>
                             ${executes}
@@ -52,7 +52,13 @@ $(document).ready(function () {
             $('#create').modal('hide');
             $('.form-create-execute')[0].reset();
             $('.executer-index').append(`<div class="col-lg-3 col-md-4 panel">
-            <div class="panel-default executer-panel">
+            <div class="action">
+                <a href="${urlSite}/execute/${res.id}/edit" class="editExecuteModal"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" title="Редактировать"></span></a>
+                <div class="remove-execute" data-toggle="tooltip" title="Удалить" data-id="${res.id}">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </div>
+            </div>
+            <div id="${res.id}" class="panel-default executer-panel">
                 <div class="caption panel-body">
                     <p><strong>Фамилия имя:</strong> ${res.last_name} ${res.name}</p>
                     <p><strong>Телефон:</strong> ${res.phone}</p>
@@ -108,7 +114,36 @@ $(document).ready(function () {
                 </div>`)
         })
             .fail(err => console.log(err))
-    })
+    });
+    $('body').on('submit', '.form-edit-direction', function (e) {
+        e.preventDefault();
+        let id = $(this).data('id')
+        $.ajax({
+            type: 'put',
+            data: $(this).serialize(),
+            url: `${urlSite}/direction/${id}`
+        })
+            .done(res => {
+                console.log(res['execute']);
+                $('#edit').modal('hide');
+                let execute = res['execute'].map(item => {
+                    return(`<div class="chips col-lg-5">${item.last_name} ${item.name} <span class="close-chips remove-execute_direction" data-id="${item.id}">X</span></div>`)
+                });
+                $(`#${id}>.panel-body`).html(`
+                <div class="action">
+                        <a href="${urlSite}/direction/${id}/edit" class="edit-direction">
+                            <span class="glyphicon glyphicon-pencil editDirectiontModal" id="${id}" data-toggle="tooltip" title="Редактировать" data-placement="left"></span>
+                        </a>
+                        <span class="glyphicon glyphicon-remove remove-direction" id="${id}" data-toggle="tooltip" title="Удалить" data-placement="left"></span>
+                    </div>
+                    <p>${res.name}</p>
+                    <div>
+                        ${execute}
+                    </div>
+                    `)
+            })
+            .fail(err => console.error(err.responseJSON.message))
+    });
     $('body').on('submit', '.form-update-client',function (e) {
         e.preventDefault();
         let form = $(this).serialize();
@@ -136,9 +171,8 @@ $(document).ready(function () {
             .done(res => {
                 $(idForm)[0].reset();
                 if (idModal){ $('#modal-create_branch').modal('hide'); }
-                console.log(res);
                 let room = res.rooms.map(item => `<div class="col-lg-5 chips">
-                            <span data-id="${ item.id }" class="close-chips remove-room">X</span>
+                            <span data-id="${ item.id }" class="close-chips destroy-room">X</span>
                             <div>${ item.name }</div>
                         </div>`);
                 $('.branch-table').append(`<div class="col-lg-5 panel panel-default branch-info">
