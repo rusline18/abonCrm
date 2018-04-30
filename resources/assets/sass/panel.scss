@@ -55,6 +55,9 @@
       right: 10px;
       opacity: 1;
     }
+    &:hover{
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.18);
+    }
   }
 }
 
@@ -122,11 +125,11 @@
       p{
         @include panel_title;
       }
-      .action-branch {
+      .action{
         @include action(0, 20px);
       }
       &:hover {
-        .action-branch {
+        .action {
           @include heveraction(20px)
         }
       }
