@@ -21,7 +21,7 @@ class ExecuteController extends Controller
      */
     public function index()
     {
-        $executer = DB::table('execute')->where('id_user', Auth::user()->id)->get();
+        $executer = DB::table('execute')->where('user_id', Auth::user()->id)->get();
         return view('execute.index', ['title' => 'Преподаватели', 'executer' => $executer]);
     }
 
@@ -68,7 +68,7 @@ class ExecuteController extends Controller
      */
     public function edit($id)
     {
-        return view('execute.create', ['execute' => Execute::find($id)]);
+        return view('execute.update', ['execute' => Execute::find($id)]);
     }
 
     /**
