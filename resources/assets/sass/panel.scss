@@ -39,7 +39,26 @@
   }
 }
 
-.executer-index, .client-index{
+.executer-index{
+  .panel{
+    margin-right: 13px;
+    margin-bottom: 13px;
+    .action {
+      display: inline-block;
+      position: absolute;
+      right: -10px;
+      cursor: pointer;
+      opacity: 0;
+      transition: all .3s ease;
+    }
+    &:hover .action {
+      right: 10px;
+      opacity: 1;
+    }
+  }
+}
+
+.client-index{
   .panel{
     margin-right: 13px;
     margin-bottom: 13px;
