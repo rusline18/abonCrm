@@ -13,7 +13,7 @@
                     <div class="branch-info_address">{{ $branch['address'] }}</div>
                     @foreach($branch['room'] as $index => $room)
                     <div class="col-lg-5 chips">
-                        <span data-id="{{ $index }}" class="close-chips remove-room">X</span>
+                        <span data-id="{{ $index }}" class="close-chips destroy-room">X</span>
                         <div>{{ $room }}</div>
                     </div>
                     @endforeach
