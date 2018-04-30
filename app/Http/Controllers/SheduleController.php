@@ -21,8 +21,8 @@ class SheduleController extends Controller
         $user = Auth::user()->id;
         $arr = [];
         $branch = Branch::where('user_id', $user)->get();
-        $direction = Direction::where('id_user', Auth::user()->id)->get();
-        $execute = Execute::where('id_user', Auth::user()->id)->get();
+        $direction = Direction::where('user_id', Auth::user()->id)->get();
+        $execute = Execute::where('user_id', Auth::user()->id)->get();
         foreach ($branch as $key => $value){
             $room = Branch::find($value->id)->rooms()->get();
             foreach ($room as $index => $item){
