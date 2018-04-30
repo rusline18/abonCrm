@@ -17,18 +17,16 @@ class DirectionController extends Controller
     public function index()
     {
         $arr = [];
-        $directions = Direction::where('id_user', Auth::user()->id)->get();
+        $directions = Direction::where('user_id', Auth::user()->id)->get();
         foreach ($directions as $key => $value){
             $execute = Direction::find($value->id)->executes()->get();
             foreach ($execute as $item){
                 $arr[$value->id]['name'] = $value->name;
-                $arr[$value->id]['execute'][$item->id]['name'] = $item->name;
-                $arr[$value->id]['execute'][$item->id]['last_name'] = $item->name;
-
+                $arr[$value->id]['execute'][$item->id]['name'] = $item->last_name.' '.$item->name;
             }
         }
 
-        $execute = Execute::select(['id', 'last_name', 'name'])->where('id_user', Auth::user()->id)->get();
+        $execute = Execute::select(['id', 'last_name', 'name'])->where('user_id', Auth::user()->id)->get();
         return view('direction.index', [
             'title' => 'Направление',
             'execute' => $execute,
@@ -72,20 +70,33 @@ class DirectionController extends Controller
      * @param  \Growth\Direction  $direction
      * @return \Illuminate\Http\Response
      */
-    public function show(Direction $direction)
+    public function show($id)
     {
-        //
+
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \Growth\Direction  $direction
+     * @param $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Direction $direction)
+    public function edit($id)
     {
-        //
+        $executes = Execute::select('id', 'last_name', 'name')->where('user_id', Auth::user()->id)->get();
+        $directionExecute = [];
+        $direction = Direction::find($id);
+        $directionExecute['direction'] = $direction;
+        $directionExecute['executes'] = $direction->executes()->select('execute_id')->get();
+        $directionExecute['teacher'] = $executes;
+        foreach ($executes as $key => $execute){
+            foreach ($directionExecute['executes'] as $checked){
+                if ($execute->id == $checked->execute_id){
+                    $directionExecute['teacher'][$key]['ckecked'] = true;
+                }
+            }
+        }
+        return view('direction.update', compact('directionExecute'));
     }
 
     /**
@@ -95,19 +106,43 @@ class DirectionController extends Controller
      * @param  \Growth\Direction  $direction
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Direction $direction)
+    public function update(Request $request, $id)
     {
-        //
+        $direction = Direction::find($id);
+        $direction->fill($request->all());
+        $direction->save();
+        $direction->executes()->detach();
+        foreach ($request->input('execute') as $execute){
+            $direction->executes()->attach($execute);
+        }
+        $direction->execute = $direction->executes()->get();
+        return $direction;
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Growth\Direction  $direction
+     * @param $id
      * @return int
+     * @throws \Exception
      */
-    public function destroy(Direction $direction)
+    public function destroy($id)
     {
-        return Direction::destroy($direction->id);
+        $direction = Direction::find($id);
+        $direction->executes()->detach();
+        $direction->delete();
+        return $direction;
+    }
+
+    /**
+     * Удаляет преподаватель из направление
+     * @param Request $request
+     * @param $id
+     * @return mixed|static
+     */
+    public function executeDestroy(Request $request, $id){
+        $direction = Direction::find($id);
+        $direction->executes()->detach($request->all());
+        return $direction;
     }
 }
