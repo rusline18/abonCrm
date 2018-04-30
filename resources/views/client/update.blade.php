@@ -37,7 +37,7 @@
                     </label>
                 </div>
             </div>
-            <input type="hidden" value="{{ Auth::user()->id }}" name="id_user">
+            <input type="hidden" value="{{ Auth::user()->id }}" name="user_id">
         </div>
     </div>
     <div class="modal-footer">
