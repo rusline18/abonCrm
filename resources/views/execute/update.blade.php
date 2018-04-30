@@ -24,7 +24,7 @@
                 <label for="email">Email</label>
                 <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="{{ $execute->email }}" required>
             </div>
-            <input type="hidden" value="{{ Auth::user()->id }}" name="id_user">
+            <input type="hidden" value="{{ Auth::user()->id }}" name="user_id">
         </div>
     </div>
     <div class="modal-footer">

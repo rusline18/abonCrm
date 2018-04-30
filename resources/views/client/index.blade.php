@@ -71,7 +71,7 @@
                             </label>
                         </div>
                     </div>
-                    <input type="hidden" value="{{ Auth::user()->id }}" name="id_user">
+                    <input type="hidden" value="{{ Auth::user()->id }}" name="user_id">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="button-error" data-dismiss="modal">Отменить</button>

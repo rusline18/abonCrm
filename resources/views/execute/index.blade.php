@@ -8,7 +8,13 @@
     </p>
     <div class="row executer-index">
         @foreach($executer as $execute)
-        <div class="col-lg-3 col-md-4 panel">
+        <div class="col-lg-3 col-md-4 panel executer-panel">
+            <div class="action">
+                <a href="{{ route('execute.edit', ['id' => $execute->id]) }}" class="editExecuteModal"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" title="Редактировать"></span></a>
+                <div class="remove-execute" data-toggle="tooltip" title="Удалить" data-id="{{ $execute->id }}">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </div>
+            </div>
             <div id='{{ $execute->id }}' class="panel-default executer-panel">
                 <div class="caption panel-body">
                     <p><strong>Фамилия имя:</strong> {{ $execute->last_name }} {{$execute->name}}</p>
@@ -52,7 +58,7 @@
                             <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
                         </div>
                     </div>
-                <input type="hidden" value="{{ Auth::user()->id }}" name="id_user">
+                <input type="hidden" value="{{ Auth::user()->id }}" name="user_id">
             </div>
             <div class="modal-footer">
                 <button type="button" class="button-error" data-dismiss="modal">Отменить</button>
