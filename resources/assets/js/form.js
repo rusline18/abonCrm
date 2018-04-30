@@ -12,7 +12,8 @@ $(document).ready(function () {
                                 <div class="pull-right button-error remove-room">-</div>
                             </div>`);
         $(this).parents('.modal-body').height(300);
-   })
+   });
+
     $('body').on('click', '.remove-room', function () {
         $(this).parents('.form-group').remove();
     })
