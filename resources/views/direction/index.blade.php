@@ -7,7 +7,7 @@
             <form class="form-inline" id="form-create_direction">
                 <div class="form-group">
                     {{ csrf_field() }}
-                    <input type="hidden" value="{{ Auth::user()->id }}" name="id_user">
+                    <input type="hidden" value="{{ Auth::user()->id }}" name="user_id" class="user">
                     <input type="text" name="name" placeholder="Название направление" class="form-control" required>
                 </div>
                 <div class="form-group">
@@ -26,20 +26,31 @@
     <div class="col-lg-12">
         <div class="row direction-table">
             @foreach($arr as $key => $direction)
-            <div class="panel panel-default col-lg-5 direction-info">
+            <div id="{{ $key }}" class="panel panel-default col-lg-5 direction-info">
                 <div class="panel-body">
-                    <p>{{ $direction['name'] }}</p>
                     <div class="action">
-                        <span class="glyphicon glyphicon-remove remove-direction" id="{{ $key }}"></span>
+                        <a href="{{ route('direction.edit', ['id' => $key]) }}" class="edit-direction">
+                            <span class="glyphicon glyphicon-pencil editDirectiontModal" id="{{ $key }}" data-toggle="tooltip" title="Редактировать" data-placement="left"></span>
+                        </a>
+                        <span class="glyphicon glyphicon-remove remove-direction" id="{{ $key }}"data-toggle="tooltip" title="Удалить" data-placement="left"></span>
                     </div>
+                    <p>{{ $direction['name'] }}</p>
                     <div>
                         @foreach($direction['execute'] as $index => $item)
-                            <div class="chips col-lg-5">{{ $item['last_name'].' '.$item['name'] }} <span class="close-chips remove-execute" data-id="{{ $index }}">X</span></div>
+                            <div class="chips col-lg-5">{{ $item['name'] }} <span class="close-chips remove-execute_direction" data-id="{{ $index }}">X</span></div>
                         @endforeach
                     </div>
                 </div>
             </div>
             @endforeach
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="editDirection" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
         </div>
     </div>
 </div>
