@@ -55,7 +55,6 @@ class BranchController extends Controller
             $room = new Room();
             $room->branch_id = $branch->id;
             $room->name = $value;
-            $room->user_id = Auth::user()->id;
             $room->save();
             $arr[] = ['id' => $room->id, 'name' => $room->name];
         }
@@ -100,12 +99,13 @@ class BranchController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Growth\Branch  $branch
+     * @param  \Growth\Branch $branch
      * @return int
+     * @throws \Exception
      */
-    public function destroy(Branch $branch)
+    public function destroy($id)
     {
-        return Branch::destroy($branch->id);
+        return Branch::destroy($id);
     }
 
     /**
