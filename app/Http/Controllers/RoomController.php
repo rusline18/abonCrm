@@ -78,8 +78,8 @@ class RoomController extends Controller
      * @param  \Growth\Room  $room
      * @return int
      */
-    public function destroy(Room $room)
+    public function destroy($id)
     {
-        return Room::destroy($room->id);
+        return Room::destroy($id);
     }
 }
