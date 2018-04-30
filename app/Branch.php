@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Branch extends Model
 {
     protected $table = 'branch';
+    protected $dateFormat = 'U';
     protected $fillable = ['name', 'city', 'street', 'build', 'appartament', 'phone', 'user_id'];
 
     public function rooms()

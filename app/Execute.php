@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Execute extends Model
 {
     protected $table = 'execute';
+    protected $dateFormat = 'U';
     protected $fillable = [
-        'last_name', 'name', 'phone', 'email', 'id_user'
+        'last_name', 'name', 'phone', 'email', 'user_id'
     ];
 
     public function directions()

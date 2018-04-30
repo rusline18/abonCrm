@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Direction extends Model
 {
     protected $table = 'direction';
-    protected $fillable = ['id_user', 'name'];
+    protected $dateFormat = 'U';
+    protected $fillable = ['user_id', 'name'];
 
     public function executes()
     {
