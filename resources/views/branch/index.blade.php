@@ -8,7 +8,12 @@
             @foreach($branchs as $key => $branch)
             <div class="col-lg-5 panel panel-default branch-info">
                 <div class="panel-body">
-                    <span id="{{ $key }}" class="action-branch glyphicon glyphicon-remove"></span>
+                    <div class="action">
+                        <a href="{{ route('branch.edit', ['id' => $key]) }}" class="editBranchModal">
+                            <span class="glyphicon glyphicon-pencil" data-id="{{ $key }}"></span>
+                        </a>
+                        <span id="{{ $key }}" class="action-branch glyphicon glyphicon-remove"></span>
+                    </div>
                     <p>{{ $branch['name'] }}</p>
                     <div class="branch-info_address">{{ $branch['address'] }}</div>
                     @foreach($branch['room'] as $index => $room)
@@ -63,6 +68,13 @@
                     <button type="submit" class="button-success">Создать</button>
                 </div>
                 </form>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="edit-branch" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
             </div>
         </div>
     </div>
