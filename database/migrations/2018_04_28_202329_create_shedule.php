@@ -20,6 +20,8 @@ class CreateShedule extends Migration
             $table->integer('direction_id');
             $table->integer('lesson_id');
             $table->integer('room_id');
+            $table->integer('created_at');
+            $table->integer('updated_at');
 
             $table->foreign('user_id')->references('id')->on('users')
                 ->onUpdate('cascade')
