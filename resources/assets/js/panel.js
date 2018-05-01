@@ -27,7 +27,6 @@ $(document).ready(function () {
    });
     $('.removeClient').on('click',function () {
         let id = $(this).parent('div').parent('div.client-panel').attr('id');
-        console.log(id);
         $.ajax({
             type: 'delete',
             data: {_token: $('meta[name="csrf-token"]').attr('content')},
@@ -39,7 +38,6 @@ $(document).ready(function () {
     });
     $('body').on('click', '.remove-direction', function () {
         let id = $(this).attr('id');
-        console.log($(this).parents('div>.direction-info'));
         $.ajax({
             type: 'delete',
             data: {_token: $('meta[name="csrf-token"]').attr('content')},
