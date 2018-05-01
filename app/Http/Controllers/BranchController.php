@@ -79,21 +79,38 @@ class BranchController extends Controller
      * @param  \Growth\Branch  $branch
      * @return \Illuminate\Http\Response
      */
-    public function edit(Branch $branch)
+    public function edit($id)
     {
-        //
+        $branchArr = [];
+        $branch = Branch::find($id);
+        $branchArr['branch'] = $branch;
+        $branchArr['rooms'] = $branch->rooms()->get();
+        return view('branch.update', compact('branchArr'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Growth\Branch  $branch
+     * @param  \Illuminate\Http\Request $request
+     * @param $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Branch $branch)
+    public function update(Request $request, $id)
     {
-        //
+        $arr = [];
+        $branch = Branch::find($id);
+        $branch->fill($request->all());
+        $branch->save();
+        Room::where('branch_id', $id)->delete();
+        foreach($request->input('room') as $value){
+            $room = new Room();
+            $room->branch_id = $branch->id;
+            $room->name = $value;
+            $room->save();
+            $arr[] = $room;
+        }
+        $branch->rooms = $arr;
+        return $branch;
     }
 
     /**
@@ -111,7 +128,7 @@ class BranchController extends Controller
     /**
      * Выводит список всех комнат в данном филиале
      * @param Branch $branch
-     * @return Branch
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function rooms($id)
     {
