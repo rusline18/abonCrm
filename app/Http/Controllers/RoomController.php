@@ -2,6 +2,7 @@
 
 namespace Growth\Http\Controllers;
 
+use Growth\Branch;
 use Growth\Room;
 use Illuminate\Http\Request;
 
@@ -80,6 +81,12 @@ class RoomController extends Controller
      */
     public function destroy($id)
     {
-        return Room::destroy($id);
+        $room = Room::find($id);
+        if ($room->count() > 1){
+            return Room::destroy($id);
+        } else {
+            Branch::destroy($room->branch_id);
+            return 'delete';
+        }
     }
 }
