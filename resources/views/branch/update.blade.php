@@ -29,7 +29,7 @@
                 <div class="form-group col-lg-8" >
                         <input type="text" class="form-control create-room" name="room[{{ $key }}]" value="{{ $rooms->name }}" placeholder="Название комнаты" required>
                         <div class="pull-right button-success add-room">+</div>
-                        @if(count($branchArr['rooms']) > 1)
+                        @if(count($branchArr['rooms']) > 1 && $key != 0)
                             <div class="pull-right button-error remove-room">-</div>
                         @endif
                 </div>
