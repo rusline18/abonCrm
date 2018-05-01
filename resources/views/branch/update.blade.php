@@ -25,15 +25,15 @@
             <input type="text" class="form-control" name="phone" placeholder="Раб телефон" value="{{ $branchArr['branch']->phone }}">
         </div>
         <div class="room">
-            <div class="form-group col-lg-8" >
-                @foreach($branchArr['rooms'] as $key => $rooms)
-                    <input type="text" class="form-control create-room" name="room[{{ $key }}]" value="{{ $rooms->name }}" placeholder="Название комнаты" required>
-                    <div class="pull-right button-success add-room">+</div>
-                    @if(count($branchArr['rooms']) > 1)
-                        <div class="pull-right button-error remove-room">-</div>
-                    @endif
-                @endforeach
-            </div>
+            @foreach($branchArr['rooms'] as $key => $rooms)
+                <div class="form-group col-lg-8" >
+                        <input type="text" class="form-control create-room" name="room[{{ $key }}]" value="{{ $rooms->name }}" placeholder="Название комнаты" required>
+                        <div class="pull-right button-success add-room">+</div>
+                        @if(count($branchArr['rooms']) > 1)
+                            <div class="pull-right button-error remove-room">-</div>
+                        @endif
+                </div>
+            @endforeach
         </div>
     </div>
     <div class="modal-footer">
