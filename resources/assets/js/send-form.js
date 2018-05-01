@@ -4,6 +4,18 @@ $(document).ready(function () {
         e.preventDefault();
         send('post', $(this).serialize(), `${urlSite}/branch`, '#modal-create_branch', '#form-create_branch');
     });
+    $('body').on('submit', '#form-update-branch', function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'put',
+            data: $(this).serialize(),
+            url: `${urlSite}/branch/${$(this).data('id')}`
+        })
+            .done(res => {
+                console.log(res)
+            })
+            .fail(err => console.error(err.responseJSON.message));
+    });
 
     $('#form-create_shedule').submit(function (e) {
         e.preventDefault();
