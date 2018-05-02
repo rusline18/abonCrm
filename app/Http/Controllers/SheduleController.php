@@ -28,7 +28,7 @@ class SheduleController extends Controller
             foreach ($room as $index => $item){
                 $arr[$key]['id'] = $value->id;
                 $arr[$key]['name'] = $value->name;
-                $arr[$key]['room'][$index] = $item->name;
+                $arr[$key]['room'][$index] = ['id' => $item->id, 'name' => $item->name];
             }
         }
         $date = ['hour' => ['8','9','10','11','12','13','14','15','16','17','18','19','20','21'], 'minute' => ['00','30']];
@@ -62,9 +62,9 @@ class SheduleController extends Controller
     public function store(Request $request)
     {
         $month = [1 => 'января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
-        $date = preg_split('/ /', $request->input('datetime'));
+        $date = preg_split('/ /', $request->input('date'));
         $date[1] = array_search($date[1], $month);
-        $date =  strtotime($date[2].'-'.$date[1].'-'.$date[0].' '.$date[3]);
+        $date =  strtotime($date[2].'-'.$date[1].'-'.$date[0]);
         $shedule = new Shedule();
         $shedule->fill($request->all());
         $shedule->date = $date;
