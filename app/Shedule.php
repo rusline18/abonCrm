@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Shedule extends Model
 {
     protected $table = 'shedule';
-    protected $fillable = ['date', 'start', 'end', 'direction_id', 'type', 'user_id', 'branch_id', 'room_id'];
+    protected $dateFormat = 'U';
+    protected $fillable = ['date', 'start', 'end', 'direction_id', 'type', 'user_id', 'room_id', 'time_start', 'time_end'];
 
     public function directions()
     {
