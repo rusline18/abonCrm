@@ -17,6 +17,8 @@ class CreateTypeShedule extends Migration
     {
         Schema::table('shedule', function (Blueprint $table) {
            $table->integer('type');
+           $table->time('time_start');
+           $table->time('time_end');
            $table->dropColumn('lesson_id');
         });
     }
@@ -29,7 +31,12 @@ class CreateTypeShedule extends Migration
     public function down()
     {
         Schema::table('shedule', function (Blueprint $table) {
-           $table->dropColumn('type');
+           $table->integer('lesson_id');
+           $table->dropColumn(['type', 'time-start', 'time-end']);
+
+            $table->foreign('lesson_id')->references('id')->on('lesson')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 }
