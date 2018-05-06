@@ -4,6 +4,10 @@ $(document).ready(function () {
         width: '300px',
         placeholder: "Выберите преподавателя"
     });
+    $('.js-select-client').select({
+        width: '300px',
+        placeholder: 'Выберите клиента'
+    });
     $('body').on('click', '.add-room', function () {
        i++
         $(this).closest('.room').append(`<div class="form-group col-lg-8" style="height: 37px">
@@ -17,7 +21,7 @@ $(document).ready(function () {
     $('body').on('click', '.remove-room', function () {
         $(this).parents('.form-group').remove();
     })
-    $('#datetimepicker').datetimepicker({
+    $('.datetimepicker').datetimepicker({
         format: 'DD MMMM YYYY',
         pickTime: false,
         locale: 'ru',
