@@ -4,6 +4,7 @@ $(document).ready(function () {
         e.preventDefault();
         send('post', $(this).serialize(), `${urlSite}/branch`, '#modal-create_branch', '#form-create_branch');
     });
+
     $('body').on('submit', '#form-update-branch', function (e) {
         e.preventDefault();
         $.ajax({
@@ -11,23 +12,7 @@ $(document).ready(function () {
             data: $(this).serialize(),
             url: `${urlSite}/branch/${$(this).data('id')}`
         })
-            .done(res => {
-                console.log(res)
-            })
             .fail(err => console.error(err.responseJSON.message));
-    });
-
-    $('#form-create_shedule').submit(function (e) {
-        e.preventDefault();
-        $.post({
-            url: `${urlSite}/shedule`,
-            data: $(this).serialize()
-            })
-            .done(() => {
-                $('#modal-create_shedule').modal('hide');
-                $('#form-create_shedule')[0].reset();
-            })
-            .fail(err => console.log(err.responseJSON.message))
     });
 
     $('#form-create_direction').on('submit', function (e) {
