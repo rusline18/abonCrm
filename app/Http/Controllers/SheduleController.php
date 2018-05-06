@@ -3,6 +3,8 @@
 namespace Growth\Http\Controllers;
 
 use Growth\Branch;
+use Growth\Client;
+use Growth\ConverDate;
 use Growth\Direction;
 use Growth\Execute;
 use Growth\Shedule;
@@ -16,30 +18,55 @@ class SheduleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user()->id;
         $arr = [];
+        $filter = $request->input('filter');
         $branch = Branch::where('user_id', $user)->get();
         $direction = Direction::where('user_id', Auth::user()->id)->get();
         $execute = Execute::where('user_id', Auth::user()->id)->get();
-        foreach ($branch as $key => $value){
-            $room = Branch::find($value->id)->rooms()->get();
+        $clients = Client::where('user_id', Auth::user()->id)->get();
+        $branchCheckout = $request->input('filter')['branch'] ? Branch::find($filter['branch']) : Branch::where('user_id', $user)->first();
+
+        if ($filter['branch']){
+            $room = $branchCheckout->rooms()->get();
             foreach ($room as $index => $item){
-                $arr[$key]['id'] = $value->id;
-                $arr[$key]['name'] = $value->name;
-                $arr[$key]['room'][$index] = ['id' => $item->id, 'name' => $item->name];
+                $arr['id'] = $branchCheckout->id;
+                $arr['name'] = $branchCheckout->name;
+                $arr['room'][$index] = ['id' => $item->id, 'name' => $item->name];
+            }
+        } else {
+            $room = Branch::find($branchCheckout->id)->rooms()->get();
+            foreach ($room as $index => $item){
+                $arr['id'] = $branchCheckout->id;
+                $arr['name'] = $branchCheckout->name;
+                $arr['room'][$index] = ['id' => $item->id, 'name' => $item->name];
             }
         }
-        $date = ['hour' => ['8','9','10','11','12','13','14','15','16','17','18','19','20','21'], 'minute' => ['00','30']];
-        $shedule = Shedule::where('user_id', $user)->get();
+        $date = ConverDate::date();
+        if ($filter['date'] && $filter['date'] != null){
+            $dateConvert = ConverDate::dateFormat($request->input('filter')['date']); // Конвертируем дату
+            $shedule = Shedule::where('user_id', $user)
+                ->with(['directions', 'clients', 'executes'])
+                ->where('date', $dateConvert)
+                ->get();
+        } else {
+            $shedule = Shedule::where('user_id', $user)
+                ->with(['directions', 'clients', 'executes'])
+                ->where('date', strtotime(date('Y-m-d')))
+                ->get();
+        }
         return view('shedule.index', [
             'title' => 'Расписание',
             'shedule' => $shedule,
+            'branchs' => $branch,
             'directions' => $direction,
             'executes' => $execute,
-            'arr' => collect($arr),
-            'date' => collect($date)
+            'clients' => $clients,
+            'arr' => $arr,
+            'date' => collect($date),
+            'checkoutDate' => $filter['date'] ? date('d M Y', $dateConvert) : date('d M Y')
         ]);
     }
 
@@ -61,15 +88,15 @@ class SheduleController extends Controller
      */
     public function store(Request $request)
     {
-        $month = [1 => 'января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
-        $date = preg_split('/ /', $request->input('date'));
-        $date[1] = array_search($date[1], $month);
-        $date =  strtotime($date[2].'-'.$date[1].'-'.$date[0]);
+        $date = ConverDate::dateFormat($request->input('date'));
         $shedule = new Shedule();
         $shedule->fill($request->all());
         $shedule->date = $date;
         $shedule->save();
-        return $shedule;
+        foreach ($request->input('client') as $client){
+            $shedule->clients()->attach($client);
+        }
+        return redirect()->action('SheduleController@index');
     }
 
     /**
@@ -89,9 +116,14 @@ class SheduleController extends Controller
      * @param  \Growth\Shedule  $shedule
      * @return \Illuminate\Http\Response
      */
-    public function edit(Shedule $shedule)
+    public function edit($id)
     {
-        //
+        $user = Auth::user()->id;
+        $branch = Branch::where('user_id', $user)->get();
+        $direction = Direction::where('user_id', Auth::user()->id)->get();
+        $execute = Execute::where('user_id', Auth::user()->id)->get();
+        $clients = Client::where('user_id', Auth::user()->id)->get();
+        return view('shedule.update', compact('branch', 'direction', 'execute', 'clients'));
     }
 
     /**
