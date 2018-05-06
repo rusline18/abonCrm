@@ -89,7 +89,6 @@ class SheduleController extends Controller
      */
     public function store(Request $request)
     {
-        //TODO изменить убрать филиал и поставить на комнаты
         $date = ConverDate::unixFormat($request->input('date'));
         $shedule = new Shedule();
         $shedule->fill($request->all());
