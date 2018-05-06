@@ -16,7 +16,10 @@ $(document).ready(function () {
         e.preventDefault();
         editModal($(this).attr('href'), '#edit-branch');
     });
+    $('.block-lesson').click(function (e) {
+        editModal($(this).data('href'))
+    })
     function editModal(url, modal = '#edit'){
-            $(modal).modal('show').find('.modal-content').load(url);
+        $(modal).modal('show').find('.modal-content').load(url);
     }
 });
