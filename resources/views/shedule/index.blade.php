@@ -2,16 +2,34 @@
 
 @section('content')
     <div class="shedule-index">
-        <h2>Филиал: {{ $arr[0]['name'] }}</h2>
+        <h2>Филиал: {{ $arr['name'] }}</h2>
         <button class="button-success" data-toggle="modal" data-target="#modal-create_shedule">Создать</button>
-        <h3> {{ date('d M Y') }} </h3>
+        <h3> {{ $checkoutDate }} </h3>
+        <div>
+            <form action="{{ route('shedule.index') }}">
+                <div class="form-group col-lg-3">
+                    <select name="filter[branch]" id="" class="form-control">
+                        <option value="">Выберите филиал</option>
+                        @foreach($branchs as $branch)
+                            <option name="branch-filter" value="{{ $branch->id }}"
+                            @if($branch->id == $arr['id'])
+                            selected
+                            @endif>{{ $branch->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <input type="text" name="filter[date]" class="form-control datetimepicker" placeholder="Выберите дату">
+                </div>
+                <button class="button" type="submit">Фильтровать</button>
+            </form>
+        </div>
         <div>
             <table class="table table-bordered table-condensed">
                 <thead>
                     <tr>
-                        <th>Время</th>
-                    @foreach($arr[0]['room'] as $key => $value)
-                        <th>{{ $value }}</th>
+                        <th width="2%">Время</th>
+                    @foreach($arr['room'] as $key => $value)
+                        <th width="15%">{{ $value['name'] }}</th>
                     @endforeach
                     </tr>
                 </thead>
@@ -20,8 +38,24 @@
                         @foreach($date['minute'] as $item)
                             <tr>
                                 <td>{{ $value.':'.$item }}</td>
-                                @foreach($arr[0]['room'] as $room)
-                                    <td></td>
+                                @foreach($arr['room'] as $room)
+                                    <td>
+                                    @foreach($shedule as $lesson)
+                                        @if($checkoutDate == date('d M Y', $lesson->date) && $lesson->time_start == $value.':'.$item.':00' && $lesson->room_id == $room['id'])
+                                            <div class="block-lesson" style="width: 43.5%; height: {{ ((strtotime($lesson->time_end) - strtotime($lesson->time_start))/60/30 + 1) * 33}}px;">
+                                                <strong>{{ $lesson->directions->name }}</strong>
+                                                <div>{{ $lesson->type == 1 ? 'Групповое занятие' : 'Индивидуальное занятие' }}</div>
+                                                <div>Преподаватель: {{ $lesson->executes->fullName }}</div>
+                                                <div>
+                                                    <div>Клиенты:</div>
+                                                    @foreach($lesson->clients as $client)
+                                                        {{ $client->fullName }}
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                    </td>
                                 @endforeach
                             </tr>
                         @endforeach
@@ -33,7 +67,7 @@
     <div class="modal fade" id="modal-create_shedule" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form id="form-create_shedule">
+                <form id="form-create_shedule" action="{{ route('shedule.store') }}" method="post">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="myModalLabel">Создание занятие</h4>
@@ -41,7 +75,15 @@
                     <div class="modal-body">
                         {{ csrf_field() }}
                         <div class="form-group">
-                            <input type="text" class="form-control" name="datetime" id="datetimepicker" placeholder="Время занятие" required>
+                            <input type="text" class="form-control datetimepicker" name="date" placeholder="Время занятие" required>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-6">
+                                <input type="text" class="form-control time" name="time_start" placeholder="Начало занятии" required>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" class="form-control time" name="time_end" placeholder="Конец занятии" required>
+                            </div>
                         </div>
                         <div class="form-group">
                             <select name="direction_id" class="form-control" required>
@@ -70,13 +112,20 @@
                         <div class="form-group">
                             <select name="branch_id" class="form-control" id="select-branch" required>
                                 <option value="" disabled selected>Выберите Филиал</option>
-                                @foreach($arr as $key => $branch)
-                                    <option value="{{ $branch['id'] }}">{{ $branch['name'] }}</option>
+                                @foreach($branchs as $branch)
+                                    <option value="{{ $branch->id }}">{{ $branch->name }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="form-group">
                             <select name="room_id" class="form-control select-room" required>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select name="client[]" class="form-control js-select-client addClient" multiple="multiple" title="Клиенты" required>
+                                @foreach($clients as $client)
+                                    <option value="{{ $client->id }}">{{ $client->fullName }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
