@@ -55,6 +55,7 @@ class BranchController extends Controller
             $room = new Room();
             $room->branch_id = $branch->id;
             $room->name = $value;
+            $room->user_id = $request->input('user_id');
             $room->save();
             $arr[] = ['id' => $room->id, 'name' => $room->name];
         }
@@ -106,6 +107,7 @@ class BranchController extends Controller
             $room = new Room();
             $room->branch_id = $branch->id;
             $room->name = $value;
+            $room->user_id = $request->input('user_id');
             $room->save();
             $arr[] = $room;
         }
