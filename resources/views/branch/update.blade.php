@@ -19,7 +19,7 @@
             <input type="text" class="form-control" name="build" placeholder="Дом" value="{{ $branchArr['branch']->build }}" required>
         </div>
         <div class="form-group col-lg-2">
-            <input type="text" class="form-control" name="appartament" placeholder="Офис" value="{{ $branchArr['branch']->appartament }}" required>
+            <input type="text" class="form-control" name="appartament" placeholder="Офис" value="{{ $branchArr['branch']->appartament }}">
         </div>
         <div class="form-group col-lg-5">
             <input type="text" class="form-control" name="phone" placeholder="Раб телефон" value="{{ $branchArr['branch']->phone }}">
