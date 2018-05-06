@@ -7,6 +7,7 @@ use Growth\Client;
 use Growth\ConverDate;
 use Growth\Direction;
 use Growth\Execute;
+use Growth\Room;
 use Growth\Shedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -44,9 +45,9 @@ class SheduleController extends Controller
                 $arr['room'][$index] = ['id' => $item->id, 'name' => $item->name];
             }
         }
-        $date = ConverDate::date();
+        $date = ConverDate::time();
         if ($filter['date'] && $filter['date'] != null){
-            $dateConvert = ConverDate::dateFormat($request->input('filter')['date']); // Конвертируем дату
+            $dateConvert = ConverDate::unixFormat($request->input('filter')['date']); // Конвертируем дату
             $shedule = Shedule::where('user_id', $user)
                 ->with(['directions', 'clients', 'executes'])
                 ->where('date', $dateConvert)
@@ -88,7 +89,8 @@ class SheduleController extends Controller
      */
     public function store(Request $request)
     {
-        $date = ConverDate::dateFormat($request->input('date'));
+        //TODO изменить убрать филиал и поставить на комнаты
+        $date = ConverDate::unixFormat($request->input('date'));
         $shedule = new Shedule();
         $shedule->fill($request->all());
         $shedule->date = $date;
@@ -113,17 +115,22 @@ class SheduleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \Growth\Shedule  $shedule
+     * @param $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         $user = Auth::user()->id;
-        $branch = Branch::where('user_id', $user)->get();
-        $direction = Direction::where('user_id', Auth::user()->id)->get();
-        $execute = Execute::where('user_id', Auth::user()->id)->get();
-        $clients = Client::where('user_id', Auth::user()->id)->get();
-        return view('shedule.update', compact('branch', 'direction', 'execute', 'clients'));
+        $roomModel = Room::where('user_id', $user)->select('id', 'branch_id', 'name')->get();
+        $branchs = $roomModel->groupBy(function ($room) {
+           return $room->branch->name;
+        });
+        $directions = Direction::where('user_id', $user)->get();
+        $executes = Execute::where('user_id', $user)->get();
+        $clients = Client::where('user_id', $user)->get();
+        $shedule = Shedule::find($id);
+        $shedule->date = ConverDate::dateFormat($shedule->date);
+        return view('shedule.update', compact('branchs', 'directions', 'executes', 'clients', 'shedule'));
     }
 
     /**
@@ -142,10 +149,10 @@ class SheduleController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \Growth\Shedule  $shedule
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|int
      */
-    public function destroy(Shedule $shedule)
+    public function destroy($id)
     {
-        //
+        return Shedule::destroy($id);
     }
 }
