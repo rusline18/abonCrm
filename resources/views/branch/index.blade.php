@@ -51,7 +51,7 @@
                         <input type="text" class="form-control" name="build" placeholder="Дом" required>
                     </div>
                     <div class="form-group col-lg-2">
-                        <input type="text" class="form-control" name="appartament" placeholder="Офис" required>
+                        <input type="text" class="form-control" name="appartament" placeholder="Офис">
                     </div>
                     <div class="form-group col-lg-5">
                         <input type="text" class="form-control" name="phone" placeholder="Раб телефон">
