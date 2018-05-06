@@ -53,4 +53,14 @@ $(document).ready(function () {
                 .fail(err => console.error(err.responseJSON.message));
         }
     })
+    $('body').on('click', '.remove-shedule', function () {
+        let id = $(this).attr('id');
+        $.ajax({
+            type: `delete`,
+            url: `${window.location.origin}/shedule/${id}`,
+            data: {_token: $(`meta[name="csrf-token"]`).attr(`content`)},
+        })
+            .done(() => location=`${window.location.origin}/shedule`)
+            .fail(err => err.responseJSON.message)
+    })
 });
