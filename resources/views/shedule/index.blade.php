@@ -42,7 +42,7 @@
                                     <td>
                                     @foreach($shedule as $lesson)
                                         @if($checkoutDate == date('d M Y', $lesson->date) && $lesson->time_start == $value.':'.$item.':00' && $lesson->room_id == $room['id'])
-                                            <div class="block-lesson" style="width: 43.5%; height: {{ ((strtotime($lesson->time_end) - strtotime($lesson->time_start))/60/30 + 1) * 33}}px;">
+                                            <div class="block-lesson" style="width: 43.5%; height: {{ ((strtotime($lesson->time_end) - strtotime($lesson->time_start))/60/30 + 1) * 33}}px;" data-href="{{ route('shedule.edit', $lesson->id) }}">
                                                 <strong>{{ $lesson->directions->name }}</strong>
                                                 <div>{{ $lesson->type == 1 ? 'Групповое занятие' : 'Индивидуальное занятие' }}</div>
                                                 <div>Преподаватель: {{ $lesson->executes->fullName }}</div>
@@ -135,6 +135,12 @@
                         <button type="submit" class="button-success">Создать</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="editShedule" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
             </div>
         </div>
     </div>
