@@ -8,7 +8,7 @@ class Shedule extends Model
 {
     protected $table = 'shedule';
     protected $dateFormat = 'U';
-    protected $fillable = ['date', 'start', 'end', 'direction_id', 'type', 'user_id', 'room_id', 'time_start', 'time_end'];
+    protected $fillable = ['date', 'start', 'end', 'direction_id', 'execute_id','type', 'user_id', 'room_id', 'time_start', 'time_end'];
 
     public function directions()
     {
@@ -18,6 +18,11 @@ class Shedule extends Model
     public function clients()
     {
         return $this->belongsToMany('Growth\Client', 'shedule_client');
+    }
+
+    public function executes()
+    {
+        return $this->belongsTo('Growth\Execute', 'execute_id', 'id');
     }
 
     public function getTypeNameAttribute()
