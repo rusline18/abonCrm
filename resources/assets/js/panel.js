@@ -1,7 +1,7 @@
 $(document).ready(function () {
     let urlSite = window.location.origin;
 
-   $('body').on('click', '.action-branch',function () {
+   $('body').on('click', '.remove-branch',function () {
        let id = $(this).attr('id');
        $.ajax({
            type: 'delete',
