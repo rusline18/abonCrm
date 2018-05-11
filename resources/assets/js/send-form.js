@@ -2,7 +2,36 @@ $(document).ready(function () {
     let urlSite = window.location.origin;
     $('#form-create_branch').submit(function (e) {
         e.preventDefault();
-        send('post', $(this).serialize(), `${urlSite}/branch`, '#modal-create_branch', '#form-create_branch');
+        $.ajax({
+            type: 'post',
+            data: $(this).serialize(),
+            url: `${urlSite}/branch`
+        })
+            .done(res => {
+                $('#form-create_branch')[0].reset();
+                $('#modal-create_branch').modal('hide');
+                let room = res.rooms.map(item => `<div class="col-lg-5 chips">
+                        <span data-id="${ item.id }" class="close-chips destroy-room">X</span>
+                        <div>${ item.name }</div>
+                    </div>`);
+                $('.branch-table').append(`<div class="col-lg-5 panel panel-default branch-info">
+            <div class="panel-body">
+            <div class="action">
+                <a href="http://localhost:8000/branch/${res.id}/edit" class="editBranchModal"">
+                    <span class="glyphicon glyphicon-pencil" data-toggle="tooltip" title="Редактировать" data-id="${res.id}"></span>
+                </a>
+                <div class="remove" data-toggle="tooltip" title="Удалить">
+                    <span id="${res.id}" class="remove-branch glyphicon glyphicon-remove"></span>
+                </div>
+           </div>
+                
+                <p>${res.name}</p>
+                <div class="branch-info_address">${ res.city } ул. ${ res.street } д.${ res.build } оф.${ res.appartament }</div>
+                ${ room }
+            </div>
+        </div>`)
+            })
+            .fail(err => console.error(err.responseJSON.message))
     });
 
     $('body').on('submit', '#form-update-branch', function (e) {
@@ -23,17 +52,15 @@ $(document).ready(function () {
         })
             .done(res => {
                 $('#form-create_direction')[0].reset();
-                let executes = res.execute.map(execute => `<div class="chips col-lg-5">${execute.last_name} ${execute.name}<span class="close-chips" data-id="${execute.id}">X</span></div>
-`);
                 $('.direction-table').append(`<div class="panel panel-default col-lg-5 direction-info">
                     <div class="panel-body">
-                        <p>${res.name}</p>
                         <div class="action">
-                            <span class="glyphicon glyphicon-remove remove-direction" id="${res.id}"></span>
+                            <a href="${urlSite}/direction/${res.id}/edit" class="editDirectiontModal"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" title="Редактировать"></span></a>
+                            <div class="remove-direction" data-toggle="tooltip" title="Удалить" data-id="${res.id}">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </div>
                         </div>
-                        <div>
-                            ${executes}
-                        </div>
+                        <p>${res.name}</p>
                     </div>
                 </div>`)
             })
@@ -114,18 +141,14 @@ $(document).ready(function () {
     });
     $('body').on('submit', '.form-edit-direction', function (e) {
         e.preventDefault();
-        let id = $(this).data('id')
+        let id = $(this).data('id');
         $.ajax({
             type: 'put',
             data: $(this).serialize(),
             url: `${urlSite}/direction/${id}`
         })
             .done(res => {
-                console.log(res['execute']);
                 $('#edit').modal('hide');
-                let execute = res['execute'].map(item => {
-                    return(`<div class="chips col-lg-5">${item.last_name} ${item.name} <span class="close-chips remove-execute_direction" data-id="${item.id}">X</span></div>`)
-                });
                 $(`#${id}>.panel-body`).html(`
                 <div class="action">
                         <a href="${urlSite}/direction/${id}/edit" class="edit-direction">
@@ -134,9 +157,6 @@ $(document).ready(function () {
                         <span class="glyphicon glyphicon-remove remove-direction" id="${id}" data-toggle="tooltip" title="Удалить" data-placement="left"></span>
                     </div>
                     <p>${res.name}</p>
-                    <div>
-                        ${execute}
-                    </div>
                     `)
             })
             .fail(err => console.error(err.responseJSON.message))
@@ -158,29 +178,4 @@ $(document).ready(function () {
         })
             .fail(err => console.log(err.responseJSON.message))
     });
-
-    function send(type, data, url, idModal = null, idForm) {
-        $.ajax({
-            type: type,
-            data: data,
-            url: url
-        })
-            .done(res => {
-                $(idForm)[0].reset();
-                if (idModal){ $('#modal-create_branch').modal('hide'); }
-                let room = res.rooms.map(item => `<div class="col-lg-5 chips">
-                            <span data-id="${ item.id }" class="close-chips destroy-room">X</span>
-                            <div>${ item.name }</div>
-                        </div>`);
-                $('.branch-table').append(`<div class="col-lg-5 panel panel-default branch-info">
-                <div class="panel-body">
-                    <span id="${res.id}" class="action-branch glyphicon glyphicon-remove"></span>
-                    <p>${res.name}</p>
-                    <div class="branch-info_address">${ res.city } ул. ${ res.street } д.${ res.build } оф.${ res.appartament }</div>
-                    ${ room }
-                </div>
-            </div>`)
-            })
-            .fail(err => console.error(err.responseJSON.message))
-    }
 });
