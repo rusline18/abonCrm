@@ -11,13 +11,6 @@
                     <input type="text" name="name" placeholder="Название направление" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <select name="execute[]" class="form-control js-example-basic-single addExecute" multiple="multiple" title="Преподаватель" required>
-                        @foreach($execute as $teacher)
-                            <option value="{{ $teacher->id }}">{{ $teacher->last_name.' '.$teacher->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group">
                     <button class="button-success">Создать</button>
                 </div>
             </form>
@@ -25,21 +18,16 @@
     </div>
     <div class="col-lg-12">
         <div class="row direction-table">
-            @foreach($arr as $key => $direction)
-            <div id="{{ $key }}" class="panel panel-default col-lg-5 direction-info">
+            @foreach($directions as $direction)
+            <div id="{{ $direction->id }}" class="panel panel-default col-lg-5 direction-info">
                 <div class="panel-body">
                     <div class="action">
-                        <a href="{{ route('direction.edit', ['id' => $key]) }}" class="edit-direction">
-                            <span class="glyphicon glyphicon-pencil editDirectiontModal" id="{{ $key }}" data-toggle="tooltip" title="Редактировать" data-placement="left"></span>
+                        <a href="{{ route('direction.edit', ['id' => $direction->id]) }}" class="edit-direction">
+                            <span class="glyphicon glyphicon-pencil editDirectiontModal" id="{{ $direction->id }}" data-toggle="tooltip" title="Редактировать" data-placement="left"></span>
                         </a>
-                        <span class="glyphicon glyphicon-remove remove-direction" id="{{ $key }}"data-toggle="tooltip" title="Удалить" data-placement="left"></span>
+                        <span class="glyphicon glyphicon-remove remove-direction" id="{{ $direction->id }}"data-toggle="tooltip" title="Удалить" data-placement="left"></span>
                     </div>
-                    <p>{{ $direction['name'] }}</p>
-                    <div>
-                        @foreach($direction['execute'] as $index => $item)
-                            <div class="chips col-lg-5">{{ $item['name'] }} <span class="close-chips remove-execute_direction" data-id="{{ $index }}">X</span></div>
-                        @endforeach
-                    </div>
+                    <p>{{ $direction->name }}</p>
                 </div>
             </div>
             @endforeach

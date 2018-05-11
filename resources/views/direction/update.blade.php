@@ -1,23 +1,12 @@
 <div class="modal-header">
     <h3>Редактировать направление</h3>
 </div>
-<form class="form-edit-direction" data-id="{{ $directionExecute['direction']->id }}">
+<form class="form-edit-direction" data-id="{{ $direction->id }}">
 <div class="modal-body">
         {{ csrf_field() }}
         <input type="hidden" name="{{ Auth::user()->id }}">
         <div class="form-group">
-            <input type="text" name="name" class="form-control" value="{{ $directionExecute['direction']->name }}">
-        </div>
-        <div class="form-group">
-            <select name="execute[]" class="form-control js-example-basic-single addExecute" multiple="multiple" title="Преподаватель" required>
-                @foreach($directionExecute['teacher'] as $teacher)
-                    <option value="{{ $teacher->id }}"
-                            @if($teacher['ckecked'] == true)
-                                selected="selected"
-                            @endif
-                            >{{ $teacher->full_name }} {{ $teacher['checked'] }}</option>
-                @endforeach
-            </select>
+            <input type="text" name="name" class="form-control" value="{{ $direction->name }}">
         </div>
 </div>
 <div class="modal-footer">
