@@ -105,6 +105,7 @@
         }
       }
       @include panel;
+      height: 55px;
       p{
         @include panel_title;
       }
