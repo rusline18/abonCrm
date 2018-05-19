@@ -24,6 +24,22 @@
   }
 }
 
+.season_unlimit-hidden{
+  display: none;
+}
+
+.season_unlimit-disabled{
+  display: block;
+}
+
+.season_number{
+  display: none;
+}
+
+.season_number-hidden{
+  display: block;
+}
+
 #modal-create_shedule{
   .select-room{
     display: none;
