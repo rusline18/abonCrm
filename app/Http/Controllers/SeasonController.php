@@ -24,18 +24,25 @@ class SeasonController extends Controller
      */
     public function create()
     {
-        //
+        return view('season.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return Request
      */
     public function store(Request $request)
     {
-        //
+        $season = new Season();
+        $season->fill($request->all());
+        $season->active = Season::ACTIVE;
+        if (!$request->input('unlimited')){
+            $season->unlimited = Season::NOT_ACTIVE;
+        }
+        $season->save();
+        return $season;
     }
 
     /**
