@@ -4,7 +4,7 @@
 
 <div class="container">
     <div>
-        <button class="button-success createSeasonModal">Создать</button>
+        <button class="button-success createSeasonModal" data-href="{{ route('season.create') }}">Создать</button>
     </div>
     <div>
 
