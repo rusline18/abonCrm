@@ -62,5 +62,22 @@ $(document).ready(function () {
         })
             .done(() => location=`${window.location.origin}/shedule`)
             .fail(err => err.responseJSON.message)
+    });
+    $('body').on('click', '.period_radio', function(){
+        if($(this).children().val() != 1){
+            $('.season_unlimit-hidden').addClass('season_unlimit-disabled').removeClass('season_unlimit-hidden');
+            $('.season_number').addClass('season_number-hidden').removeClass('season_number');
+        }
+        if($(this).children().val() == 1){
+            $('.season_unlimit-disabled').addClass('season_unlimit-hidden').removeClass('season_unlimit-disabled');
+            $('.season_number-hidden').addClass('season_number').removeClass('season_number-hidden');
+        }
+    });
+    $('body').on('change', '#unlimit', function () {
+        if($('#unlimit').is(':checked')){
+            $('.season_number-hidden').addClass('season_number').removeClass('season_number-hidden');
+        } else {
+            $('.season_number').addClass('season_number-hidden').removeClass('season_number');
+        }
     })
 });
