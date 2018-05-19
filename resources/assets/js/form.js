@@ -64,20 +64,40 @@ $(document).ready(function () {
             .fail(err => err.responseJSON.message)
     });
     $('body').on('click', '.period_radio', function(){
+        $('.period_radio.active').removeClass('active');
+        $(this).addClass('active');
         if($(this).children().val() != 1){
             $('.season_unlimit-hidden').addClass('season_unlimit-disabled').removeClass('season_unlimit-hidden');
-            $('.season_number').addClass('season_number-hidden').removeClass('season_number');
+            $('.season_number')
+                .addClass('season_number-hidden')
+                .removeClass('season_number')
+                .children('input')
+                .attr('required', true);
         }
         if($(this).children().val() == 1){
-            $('.season_unlimit-disabled').addClass('season_unlimit-hidden').removeClass('season_unlimit-disabled');
-            $('.season_number-hidden').addClass('season_number').removeClass('season_number-hidden');
+            $('.season_unlimit-disabled')
+                .addClass('season_unlimit-hidden')
+                .removeClass('season_unlimit-disabled');
+            $('.season_number-hidden')
+                .addClass('season_number')
+                .removeClass('season_number-hidden')
+                .children('input')
+                .removeAttr('required');
         }
     });
     $('body').on('change', '#unlimit', function () {
         if($('#unlimit').is(':checked')){
-            $('.season_number-hidden').addClass('season_number').removeClass('season_number-hidden');
+            $('.season_number-hidden')
+                .addClass('season_number')
+                .removeClass('season_number-hidden')
+                .children()
+                .removeAttr('required');
         } else {
-            $('.season_number').addClass('season_number-hidden').removeClass('season_number');
+            $('.season_number')
+                .addClass('season_number-hidden')
+                .removeClass('season_number')
+                .children()
+                .attr('required', true);
         }
     })
 });
