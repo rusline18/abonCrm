@@ -178,4 +178,14 @@ $(document).ready(function () {
         })
             .fail(err => console.log(err.responseJSON.message))
     });
+    $('body').on('submit', '.form-create_seaaon', function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'post',
+            data: $(this).serialize(),
+            url: `${urlSite}/season`
+        })
+            .then(res => console.log(res))
+            .fail(err => console.error(err.responseJSON.message));
+    })
 });
