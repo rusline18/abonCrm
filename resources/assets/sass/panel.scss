@@ -3,7 +3,7 @@
   text-align: center;
   font-weight: 700;
 }
-@mixin heveraction($rightEnd){
+@mixin hoveraction($rightEnd){
   right: $rightEnd;
   opacity: 1;
 }
@@ -101,13 +101,28 @@
       }
       &:hover {
         .action{
-          @include heveraction(10px)
+          @include hoveraction(10px)
         }
       }
       @include panel;
       height: 55px;
       p{
         @include panel_title;
+      }
+    }
+  }
+}
+
+.season-index{
+  margin-top: 20px;
+  .season-panel{
+    height: 118px;
+    .action {
+      @include action(-2px, 10px);
+    }
+    &:hover {
+      .action{
+        @include hoveraction(25px)
       }
     }
   }
@@ -131,7 +146,7 @@
       }
       &:hover {
         .action {
-          @include heveraction(20px)
+          @include hoveraction(20px)
         }
       }
     }
