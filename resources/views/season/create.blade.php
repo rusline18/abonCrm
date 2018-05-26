@@ -1,6 +1,6 @@
 <form class="form-create_seaaon">
     <div class="modal-header">
-        <h3>Создание абонимента</h3>
+        <h3>Создание абонемента</h3>
     </div>
     <div class="modal-body">
         <div>Срок абонимента</div>
