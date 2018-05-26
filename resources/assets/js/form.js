@@ -67,7 +67,9 @@ $(document).ready(function () {
         $('.period_radio.active').removeClass('active');
         $(this).addClass('active');
         if($(this).children().val() != 1){
-            $('.season_unlimit-hidden').addClass('season_unlimit-disabled').removeClass('season_unlimit-hidden');
+            $('.season_unlimit-hidden')
+                .addClass('season_unlimit-disabled')
+                .removeClass('season_unlimit-hidden');
             $('.season_number')
                 .addClass('season_number-hidden')
                 .removeClass('season_number')
@@ -82,6 +84,7 @@ $(document).ready(function () {
                 .addClass('season_number')
                 .removeClass('season_number-hidden')
                 .children('input')
+                .val('')
                 .removeAttr('required');
         }
     });
@@ -90,13 +93,14 @@ $(document).ready(function () {
             $('.season_number-hidden')
                 .addClass('season_number')
                 .removeClass('season_number-hidden')
-                .children()
+                .children('input')
+                .val('')
                 .removeAttr('required');
         } else {
             $('.season_number')
                 .addClass('season_number-hidden')
                 .removeClass('season_number')
-                .children()
+                .children('input')
                 .attr('required', true);
         }
     })
