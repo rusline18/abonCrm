@@ -77,19 +77,22 @@ class SeasonController extends Controller
      * @param  \Growth\Season  $season
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Season $season)
+    public function update(Request $request, $id)
     {
-        //
+        $season = Season::find($id);
+        $season->fill($request->all());
+        $season->save();
+        return $season;
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \Growth\Season  $season
-     * @return \Illuminate\Http\Response
+     * @return int
      */
-    public function destroy(Season $season)
+    public function destroy($id)
     {
-        //
+        return Season::destroy($id);
     }
 }

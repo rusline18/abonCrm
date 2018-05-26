@@ -78,9 +78,18 @@ $(document).ready(function () {
             data: {_token: $('meta[name="csrf-token"]').attr('content')}
         })
             .done(res => {
-                console.log(res);
                 $(this).parent().remove();
             })
             .fail(err => console.log(err.responseJSON.message))
+    });
+    $('body').on('click', '.remove-season', function () {
+       let id = $(this).attr('id');
+       $.ajax({
+           type: 'delete',
+           url: `${urlSite}/season/${id}`,
+           data: {_token: $('meta[name="csrf-token"]').attr('content')}
+       })
+           .done(() => $(this).parents('.panel').parent().remove())
+           .fail(err => console.error(err.responseJSON.message))
     });
 });

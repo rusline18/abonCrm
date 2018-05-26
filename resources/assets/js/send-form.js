@@ -187,5 +187,40 @@ $(document).ready(function () {
         })
             .then(res => console.log(res))
             .fail(err => console.error(err.responseJSON.message));
+    });
+    $('body').on('submit', '.form-update_seaaon', function (e) {
+        e.preventDefault();
+        let id = $(this).data('id');
+        $.ajax({
+            type: 'put',
+            data: $(this).serialize(),
+            url: `${urlSite}/season/${id}`
+        })
+            .done(res => {
+                let period, unlimited, number;
+                $('#edit').modal('hide');
+                $('.form-update_seaaon')[0].reset();
+                console.log(res);
+                if (res.period == 1){
+                    period = '1 день';
+                } else if(res.period == 2){
+                    period = '1 месяц';
+                } else if(res.period == 3){
+                    period = '2 месяца';
+                } else {
+                    period = '3 месяца';
+                }
+                number = res.number ? `<div>${ res.number } занятий</div>` : '';
+                unlimited = res.unlimited == 1 ? '<div>Безлимит</div>' : '';
+                $(`#${id} .season-info`).html(`
+                        <div>Срок:
+                            ${period}
+                        </div>
+                        <div>${ number }</div>
+                        <div>${ res.sum }<span class="glyphicon glyphicon-ruble"></span></div>
+                            ${unlimited}
+                    `)
+            })
+            .fail(err => console.error(err.responseJSON.message))
     })
 });
