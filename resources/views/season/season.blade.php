@@ -6,8 +6,37 @@
     <div>
         <button class="button-success createSeasonModal" data-href="{{ route('season.create') }}">Создать</button>
     </div>
-    <div>
-
+    <div class="row season-index">
+        @foreach($seasons as $season)
+        <div class="col-lg-3">
+            <div class="panel panel-default season-panel">
+                <div class="panel-body">
+                    <div class="action">
+                        <a href="{{ route('season.edit', ['id' => $season->id]) }}" class="edit-season">
+                            <span class="glyphicon glyphicon-pencil editSeasonModal" id="{{ $season->id }}" data-toggle="tooltip" title="Редактировать" data-placement="left"></span>
+                        </a>
+                        <span class="glyphicon glyphicon-remove remove-season" id="{{ $season->id }}"data-toggle="tooltip" title="Удалить" data-placement="left"></span>
+                    </div>
+                    <div>Срок:
+                        @if($season->period == 1)
+                            1 день
+                        @elseif($season->period == 2)
+                            1 месяц
+                        @elseif($season->period == 3)
+                            2 месяца
+                        @else
+                            3 месяца
+                        @endif
+                    </div>
+                    <div>{{ $season->number }} занятий</div>
+                    <div>{{ $season->sum }}<span class="glyphicon glyphicon-ruble"></span></div>
+                    @if($season->unlimited)
+                    <div>Безлимит</div>
+                    @endif
+                </div>
+            </div>
+        </div>
+        @endforeach
     </div>
 </div>
 <!--Modal-->
