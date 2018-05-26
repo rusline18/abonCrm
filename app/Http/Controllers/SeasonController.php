@@ -2,6 +2,7 @@
 
 namespace Growth\Http\Controllers;
 
+use Auth;
 use Growth\Season;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,8 @@ class SeasonController extends Controller
      */
     public function index()
     {
-        return view('season.season');
+        $seasons = Season::where('user_id', Auth::user()->id)->get();
+        return view('season.season', compact('seasons'));
     }
 
     /**
@@ -31,7 +33,7 @@ class SeasonController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return Request
+     * @return Season
      */
     public function store(Request $request)
     {
@@ -62,9 +64,10 @@ class SeasonController extends Controller
      * @param  \Growth\Season  $season
      * @return \Illuminate\Http\Response
      */
-    public function edit(Season $season)
+    public function edit($id)
     {
-        //
+        $seasons = Season::find($id);
+        return view('season.update', compact('seasons'));
     }
 
     /**
