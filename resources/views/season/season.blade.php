@@ -8,7 +8,7 @@
     </div>
     <div class="row season-index">
         @foreach($seasons as $season)
-        <div class="col-lg-3">
+        <div id="{{ $season->id }}" class="col-lg-3">
             <div class="panel panel-default season-panel">
                 <div class="panel-body">
                     <div class="action">
@@ -17,22 +17,26 @@
                         </a>
                         <span class="glyphicon glyphicon-remove remove-season" id="{{ $season->id }}"data-toggle="tooltip" title="Удалить" data-placement="left"></span>
                     </div>
-                    <div>Срок:
-                        @if($season->period == 1)
-                            1 день
-                        @elseif($season->period == 2)
-                            1 месяц
-                        @elseif($season->period == 3)
-                            2 месяца
-                        @else
-                            3 месяца
+                    <div class="season-info">
+                        <div>Срок:
+                            @if($season->period == 1)
+                                1 день
+                            @elseif($season->period == 2)
+                                1 месяц
+                            @elseif($season->period == 3)
+                                2 месяца
+                            @else
+                                3 месяца
+                            @endif
+                        </div>
+                        @if($season->number)
+                            <div>{{ $season->number }} занятий</div>
+                        @endif
+                        <div>{{ $season->sum }}<span class="glyphicon glyphicon-ruble"></span></div>
+                        @if($season->unlimited)
+                            <div>Безлимит</div>
                         @endif
                     </div>
-                    <div>{{ $season->number }} занятий</div>
-                    <div>{{ $season->sum }}<span class="glyphicon glyphicon-ruble"></span></div>
-                    @if($season->unlimited)
-                    <div>Безлимит</div>
-                    @endif
                 </div>
             </div>
         </div>
