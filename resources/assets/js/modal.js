@@ -19,6 +19,10 @@ $(document).ready(function () {
     $('.block-lesson').click(function (e) {
         editModal($(this).data('href'))
     });
+    $('body').on('click', '.editSeasonModal', function (e) {
+        e.preventDefault();
+        editModal($(this).parent().attr('href'));
+    });
     $('.createSeasonModal').click(function () {
         editModal($(this).data('href'), '#create');
     });
