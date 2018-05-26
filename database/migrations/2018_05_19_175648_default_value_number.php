@@ -13,8 +13,7 @@ class DefaultValueNumber extends Migration
      */
     public function up()
     {
-        Schema::table(
-            'season', function (Blueprint $table){
+        Schema::table('season', function (Blueprint $table){
            $table->integer('number')->nullable()->change();
         });
     }
@@ -27,7 +26,7 @@ class DefaultValueNumber extends Migration
     public function down()
     {
         Schema::table('season', function (Blueprint $table){
-            $table->dropColumn('number');
+            $table->integer('number')->change();
         });
     }
 }
