@@ -1,4 +1,4 @@
-<form class="form-create_seaaon">
+<form class="form-update_seaaon" data-id="{{ $seasons->id }}">
     <div class="modal-header">
         <h3>Редактирование абонемента</h3>
     </div>
