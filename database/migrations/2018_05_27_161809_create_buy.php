@@ -17,6 +17,7 @@ class CreateBuy extends Migration
            $table->increments('id');
            $table->integer('season_id');
            $table->integer('client_id');
+           $table->integer('user_id');
            $table->integer('created_at');
            $table->integer('updated_at');
 
@@ -26,6 +27,9 @@ class CreateBuy extends Migration
            $table->foreign('client_id')->references('id')->on('client')
                ->onUpdate('cascade')
                ->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 
