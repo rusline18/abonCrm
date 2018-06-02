@@ -4,7 +4,8 @@
 
 <div class="container">
     <div>
-        <button class="button-success createSeasonModal" data-href="{{ route('season.create') }}">Создать</button>
+        <button class="button-success createSeasonModal" data-href="{{ route('season.create') }}"><span class="glyphicon glyphicon-plus"></span> Создать</button>
+        <button class="button-success buySeasonModal" data-href="{{ route('buy.create') }}"><span class="glyphicon glyphicon-credit-card"></span> Покупка</button>
     </div>
     <div class="row season-index">
         @foreach($seasons as $season)
@@ -44,7 +45,7 @@
     </div>
 </div>
 <!--Modal-->
-@component('component.modal', ['id' => 'create', 'ariaLabel' => 'createSeason']) @endcomponent
+@component('component.modal', ['id' => 'create', 'ariaLabel' => 'create']) @endcomponent
 @component('component.modal', ['id' => 'edit', 'ariaLabel' => 'editSeason']) @endcomponent
 
 @endsection
