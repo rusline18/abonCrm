@@ -3,7 +3,10 @@
 namespace Growth\Http\Controllers;
 
 use Growth\Buy_season;
+use Growth\Client;
+use Growth\Season;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BuySeasonController extends Controller
 {
@@ -24,7 +27,10 @@ class BuySeasonController extends Controller
      */
     public function create()
     {
-        //
+        $user = Auth::user()->id;
+        $seasons = Season::where('user_id', $user)->get();
+        $clients = Client::where('user_id', $user)->get();
+        return view('season.buyCreate', compact('seasons', 'clients'));
     }
 
     /**
